@@ -1,13 +1,12 @@
-\textbf{Components}
+\section{Introduction}
 
 \begin{itemize}
-\item Grab songs (Beatles, Billboard charts, etc.)
-\item Run automatic chord extraction
-\item Calculate optimal local sequence alignment between every pair of songs in all 12 transpositions
+\item We want to compare harmonic similarity between 2 songs in an efficient manner
+\item Problems:
     \begin{itemize}
-    \item Define distance between two chords (Harte distance)
-    \item Set gap costs
+    \item Ground-truth data takes too long to collect (~12-19 mins per person, over an hour in complex music, human error)
     \end{itemize}
-\item Visualize results
-\item Devise synthetic test cases to determine if results align with human perception of harmonic similarity
+\item Turn to music information retrieval research
+\item Contest hosted yearly to find best chord retrieval algorithms (~80% correct identification rate)
+\item Using these models, can we compare harmonic progressions in a manner that accounts for inaccuracies and performs well despite this
 \end{itemize}
