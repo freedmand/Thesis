@@ -1,4 +1,4 @@
-Components.tex
+Components2.tex
 Harte.tex
 SmithWaterman.tex
 SmithDemonstration.tex
