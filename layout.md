@@ -1,4 +1,5 @@
 Introduction.tex
+IntroductionTheory.tex
 Components.tex
 Harte.tex
 SmithWaterman.tex
