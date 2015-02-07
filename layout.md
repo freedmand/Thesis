@@ -1,5 +1,6 @@
 Introduction.tex
 IntroductionTheory.tex
+figures/virtualpitch/virtualpitch.svg
 Components.tex
 Harte.tex
 SmithWaterman.tex
