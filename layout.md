@@ -1,13 +1,13 @@
 PlaceholderBeginning.tex
 Music.tex
+figures/virtualpitch1/virtualpitch1.png
+figures/virtualpitch/Components.tex
 music2.tex
 figures/piano/piano.png
 notecontinued.tex
 ChordTheory.tex
 IntroductionTheory.tex
 figures/cmajorchord1/cmajorchord1.png
-figures/virtualpitch1/virtualpitch1.png
-figures/virtualpitch/Components.tex
 Harte.tex
 ch2test.tex
 SmithWaterman.tex
