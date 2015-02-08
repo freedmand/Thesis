@@ -1,6 +1,7 @@
 PlaceholderBeginning.tex
 Music.tex
 figures/piano/piano.png
+notecontinued.tex
 ChordTheory.tex
 IntroductionTheory.tex
 figures/cmajorchord1/cmajorchord1.png
