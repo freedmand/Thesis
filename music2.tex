@@ -3,7 +3,7 @@ Western music is based on a division of 12 distinct frequencies per \textit{octa
 \textit{Note names} are used to classify the pitches in the chromatic scale. Note names consist of a base name and 0 or more \textit{accidentals}. The base names of a note correspond to the white keys on a piano---in any one given octave there are the following names: $C$, $D$, $E$, $F$, $G$, $A$, and $B$. A base note name can optionally be decorated with an indefinite number of sharps ($\#$) or flats ($b$), but not both, in the note name. These are referred to as accidentals. Each additional $\#$ increases the pitch to which the note name refers by 1 semitone; likewise, each $b$ decreases the pitch by 1 semitone. The black keys on the piano represent pitches 1 semitone in between the surrounding white keys. Each white key is either 1 semitone or 2 semitones apart, depending on if a black key is in the middle. For instance, $C$ and $D$ are 2 semitones apart, whereas $E$ and $F$ are 1 semitone apart. See figure ~\ref{fig:piano}.
 
 \begin{align}
-Note &\to BaseNote \mid BaseNote\ "\#"\ SharpAccidentals \mid BaseNote\ "b"\ FlatAccidentals \\
+Note &\to BaseNote \mid BaseNote\ ``\#''\ SharpAccidentals \mid BaseNote\ ``b''\ FlatAccidentals \\
 BaseNote &\to C \mid D \mid E \mid F \mid G \mid A \mid B \\
 SharpAccidentals &\to "\#"\ SharpAccidentals \mid \epsilon \\
 FlatAccidentals &\to "b"\ FlatAccidentals \mid \epsilon
