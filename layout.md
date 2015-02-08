@@ -9,7 +9,6 @@ ChordTheory.tex
 IntroductionTheory.tex
 figures/cmajorchord1/cmajorchord1.png
 Harte.tex
-ch2test.tex
 SmithWaterman.tex
 SmithDemonstration.tex
 Visualization.tex
