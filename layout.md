@@ -1,6 +1,5 @@
 PlaceholderBeginning.tex
 Music.tex
-figures/virtualpitch1/virtualpitch1.png
 figures/virtualpitch/Components.tex
 music2.tex
 figures/piano/piano.png
