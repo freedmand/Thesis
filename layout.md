@@ -1,5 +1,6 @@
 PlaceholderBeginning.tex
 Music.tex
+music2.tex
 figures/piano/piano.png
 notecontinued.tex
 ChordTheory.tex
