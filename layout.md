@@ -6,7 +6,6 @@ music2.tex
 figures/piano/piano.png
 notecontinued.tex
 ChordTheory.tex
-ChordProgressions.tex
 IntroductionTheory.tex
 figures/cmajorchord1/cmajorchord1.png
 Harte.tex
