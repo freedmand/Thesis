@@ -12,7 +12,6 @@ chordmir.tex
 ComputationChordExtract.tex
 PossibleHarmonicComparisons.tex
 Introduction1.tex
-Harte.tex
 SmithWaterman.tex
 SmithDemonstration.tex
 Visualization.tex
