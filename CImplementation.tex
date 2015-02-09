@@ -1,0 +1,31 @@
+\chapter{Code Implementation}
+
+\section{Smith-Waterman}
+
+\subsection{Using the chord alphabet}
+
+\item Chord data structures (alphabet), base 12 representation
+
+\item Ignoring duration (future work)
+
+\subsection{Bitwise representation of harmonies}
+
+\item Cleverness with representing chords and harmonies as integers and allowing simple bitwise operations and bitmasks
+
+\subsection{MIPS Implementation}
+
+\item Used BU implementation, extreme speed results, but only for DNA and Protein sequences, the usual use case of Smith-Waterman
+
+\item Optimized implementation for use with chord alphabet
+
+\item Initialize distance matrix, extremely fast
+
+\subsection{Speed considerations}
+
+\item Initially implemented in Python, experience 100,000x speed-up
+
+\subsection{Future considerations}
+
+\item Fast SW extremely useful but also highly restrictive in its compactness and efficiency -- hard to modify
+
+\item Adapt using local transpositions
