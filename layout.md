@@ -8,6 +8,7 @@ notecontinued.tex
 ChordTheory.tex
 IntroductionTheory.tex
 figures/cmajorchord1/cmajorchord1.png
+chordprogressions.tex
 Harte.tex
 SmithWaterman.tex
 SmithDemonstration.tex
