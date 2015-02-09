@@ -14,5 +14,6 @@ PossibleHarmonicComparisons.tex
 DistanceFunction.tex
 CImplementation.tex
 InitialResults.tex
+FurtherTesting.tex
 FutureImprovements.tex
 ReferenceLister.tex
