@@ -11,6 +11,7 @@ figures/cmajorchord1/cmajorchord1.png
 chordmir.tex
 ComputationChordExtract.tex
 PossibleHarmonicComparisons.tex
+DistanceFunction.tex
 Introduction1.tex
 SmithWaterman.tex
 SmithDemonstration.tex
