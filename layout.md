@@ -10,6 +10,7 @@ IntroductionTheory.tex
 figures/cmajorchord1/cmajorchord1.png
 chordmir.tex
 ComputationChordExtract.tex
+PossibleHarmonicComparisons.tex
 Introduction1.tex
 Harte.tex
 SmithWaterman.tex
