@@ -1,0 +1,33 @@
+\section{Comparing Chord Progressions}
+
+\subsection{Simple Global Comparison}
+
+\item Iterate through each chord one by one and compare if it's similar or not. Perhaps use a distance matrix or something of the sort.
+
+\subsection{N-Gram Comparison}
+
+\item Using a sliding window of n-grams (tried 4), can we see the distribution of top scores and make some sort of claim based on that.
+
+\item Advantages: Compares localized alignments, that is alignments in different positions.
+
+\item Disadvantages: Computationally expensive. Does not work for arbitrary window lengths without another exponent in computation time required. Does not account for marginal errors well.
+
+\subsection{Minimum Edit Distance}
+
+\item Global comparison, assign cost to different edit distances and find minimum required "transformation" between two songs. Uses dynamic programming and can be done in quadratic time.
+
+\item Disadvantages: global alignments only.
+
+\subsection{Smith-Waterman}
+
+\item Localized comparison, dynamic programming, find minimum number of required "transformations" and optimal localized slice. Dynamic programming
+
+\item Works well with inexact data, can deal with common pitfalls of chord extraction.
+
+\item Isolates similar substructures.
+
+\item Does not penalize closely related chords, i.e. Em7 and Gmaj
+
+\item Difficulty in extracting multiple "best" options but good at finding one top contender
+
+\item Difficulty in comparing scores
