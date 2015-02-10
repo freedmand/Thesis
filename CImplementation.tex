@@ -4,6 +4,16 @@
 
 \subsection{Using the chord alphabet}
 
+The Smith-Waterman algorithm is typically used in bioinformatic applications in which the alphabet is typically restricted to DNA or protein characters. To use an alphabet that contains all the chord symbols, a bijective function can be established between every type of chord and a unique 16 bit integer. Recall a chord can be described with the following grammar:
+
+\begin{align*}
+Chord &\to Root\ Harmony \ Bass \mid NoChord \\
+Root &\to PitchClass \\
+Bass &\to PitchClass \\
+PitchClass &\to A \mid A\#/Bb \mid B \mid C \mid C\#/Db \mid D \mid D\#/Eb \mid E \mid F \mid F\#/Gb \mid G \mid G\#/Ab \\
+Harmony &\to maj \mid 6 \mid maj7 \mid m \mid m6 \mid m7 \mid 7 \mid aug \mid dim \mid dim7 \mid m7b5
+\end{align*}
+
 \item Chord data structures (alphabet), base 12 representation
 
 \item Ignoring duration (future work)
