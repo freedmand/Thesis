@@ -36,15 +36,17 @@ $PitchClass$ & $p(PitchClass)$ & \hspace*{2cm} & $Harmony$ & $h(Harmony)$ \\
 
 In base 12, a chord that is not \textbf{NoChord} can be represented as an integer in which the digits are positioned as follows:
 
-\framebox[1.1\width]{\textbf{Bass} (0-11)}\framebox[1.1\width]{\textbf{Root} (0-11)}\framebox[1.1\width]{\textbf{Harmony} (0-11)}
+\begin{center}
+\framebox[1.5\width]{\textbf{Bass} (0-11)}\framebox[1.5\width]{\textbf{Root} (0-11)}\framebox[1.5\width]{\textbf{Harmony} (0-11)}
+\end{center}
 
-This can be calculated as $(12 \cdot 12) \textbf{Bass} + 12 \textbf{Root} + \textbf{Harmony}$. To include \textbf{NoChord}, the base 12 representation of a chord can be shifted by $1$ and $0$ can be reserved for \textbf{NoChord}, thus a bijective function $ChordToInt$ to map any chord $c$ to an integer can be calculated as follows:
+This can be calculated as $(12 \cdot 12) \cdot \textbf{Bass} + 12 \cdot \textbf{Root} + \textbf{Harmony}$. To include \textbf{NoChord}, the base 12 representation of a chord can be shifted by $1$ and $0$ can be reserved for \textbf{NoChord}, thus a bijective function $ChordToInt$ to map any chord $c$ to an integer can be calculated as follows:
 
 \[
 ChordToInt(c) = 
 \begin{cases}
 0 & \text{if }c = \textbf{NoChord} \\
-144 \textbf{Bass} + 12 \textbf{Root} + \textbf{Harmony} + 1 & \text{otherwise}
+144 \cdot \textbf{Bass} + 12 \cdot \textbf{Root} + \textbf{Harmony} + 1 & \text{otherwise}
 \end{cases}
 \]
 
