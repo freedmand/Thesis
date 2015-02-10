@@ -4,7 +4,7 @@
 
 \subsection{Using the chord alphabet}
 
-The Smith-Waterman algorithm is typically used in bioinformatic applications in which the alphabet is typically restricted to DNA or protein characters. To use an alphabet that contains all the chord symbols, a bijective function can be established between every type of chord and a unique 16 bit integer. Recall a chord can be described with the following grammar:
+The Smith-Waterman algorithm is typically used in bioinformatic applications in which the alphabet is restricted to DNA or protein characters. To use an alphabet that contains all the chord symbols, a bijective function can be established between every type of chord and a unique 16 bit integer. Recall a chord can be described with the following grammar:
 
 \begin{align*}
 Chord &\to Root\ Harmony \ Bass \mid \textbf{NoChord} \\
@@ -16,23 +16,23 @@ Harmony &\to \textbf{maj} \mid \textbf{6} \mid \textbf{maj7} \mid \textbf{m} \mi
 
 Notice that $|Root| = |Bass| = |PitchClass| = 12$ and $|Harmony| = 12$. A bijective function $p$ between $PitchClass$ and an integer from 0 through 11 can be established, along with a bijective function $h$ between $Harmony$.
 
-\begin{tabular}{llll}
+\[\begin{tabular}{llcll}
 \toprule
-$PitchClass$ & $p(PitchClass)$ & $Harmony$ & $h(Harmony)$ \\
+$PitchClass$ & $p(PitchClass)$ & \hspace*{2cm} & $Harmony$ & $h(Harmony)$ \\
 \cmidrule(r){1-2} \cmidrule(r){3-4} \\
-\textbf{A}     & 0  & \textbf{maj} & 0 \\
-\textbf{A#/Bb} & 1  & \textbf{6} & 1 \\
-\textbf{B}     & 2  & \textbf{maj7} & 2 \\
-\textbf{C}     & 3  & \textbf{m} & 3 \\
-\textbf{C#/Db} & 4  & \textbf{m6} & 4 \\
-\textbf{D}     & 5  & \textbf{m7} & 5 \\
-\textbf{D#/Eb} & 6  & \textbf{7} & 6 \\
-\textbf{E}     & 7  & \textbf{aug} & 7 \\
-\textbf{F}     & 8  & \textbf{dim} & 8 \\
-\textbf{F#/Gb} & 9  & \textbf{dim7} & 9 \\
-\textbf{G}     & 10 & \textbf{m7b5} & 10 \\
-\textbf{G#/Ab} & 11 & \textbf{UnknownHarmony} & \\
-\end{tabular}
+\textbf{A}     & 0  & & \textbf{maj} & 0 \\
+\textbf{A#/Bb} & 1  & & \textbf{6} & 1 \\
+\textbf{B}     & 2  & & \textbf{maj7} & 2 \\
+\textbf{C}     & 3  & & \textbf{m} & 3 \\
+\textbf{C#/Db} & 4  & & \textbf{m6} & 4 \\
+\textbf{D}     & 5  & & \textbf{m7} & 5 \\
+\textbf{D#/Eb} & 6  & & \textbf{7} & 6 \\
+\textbf{E}     & 7  & & \textbf{aug} & 7 \\
+\textbf{F}     & 8  & & \textbf{dim} & 8 \\
+\textbf{F#/Gb} & 9  & & \textbf{dim7} & 9 \\
+\textbf{G}     & 10 & & \textbf{m7b5} & 10 \\
+\textbf{G#/Ab} & 11 & & \textbf{UnknownHarmony} & 11 \\
+\end{tabular}\]
 
 In base 12, a chord can be represented as integer.
 
