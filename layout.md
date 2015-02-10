@@ -14,6 +14,7 @@ PossibleHarmonicComparisons.tex
 DistanceFunction.tex
 CImplementation.tex
 InitialResults.tex
+figures/country_chord_graph/country_chord_graph.png
 FurtherTesting.tex
 FutureImprovements.tex
 ReferenceLister.tex
