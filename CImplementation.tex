@@ -14,6 +14,51 @@ PitchClass &\to \textbf{A} \mid \textbf{A#/Bb} \mid \textbf{B} \mid \textbf{C} \
 Harmony &\to \textbf{maj} \mid \textbf{6} \mid \textbf{maj7} \mid \textbf{m} \mid \textbf{m6} \mid \textbf{m7} \mid \textbf{7} \mid \textbf{aug} \mid \textbf{dim} \mid \textbf{dim7} \mid \textbf{m7b5} \mid \textbf{UnknownHarmony}
 \end{align*}
 
+Notice that $|Root| = |Bass| = |PitchClass| = 12$ and $|Harmony| = 12$. A bijective $p$ between $PitchClass$ and integer from 0 through 11 can be established as follows:
+
+\begin{tabular}{ll}
+\toprule
+$PitchClass$ & $p(PitchClass)$ \\
+\midrule
+\textbf{A} & 0 \\
+\textbf{A#/Bb} & 1 \\
+\textbf{B} & 2 \\
+\textbf{C} & 3 \\
+\textbf{C#/Db} & 4 \\
+\textbf{D} & 5 \\
+\textbf{D#/Eb} & 6 \\
+\textbf{E} & 7 \\
+\textbf{F} & 8 \\
+\textbf{F#/Gb} & 9 \\
+\textbf{G} & 10 \\
+\textbf{G#/Ab} & 11 \\
+\bottomrule
+\end{tabular}
+
+Likewise, a bijection function $h$ between $Harmony$ and an integer from 0 through 11 can be established as follows:
+
+\begin{tabular}{ll}
+\toprule
+$Harmony$ & $h(Harmony)$ \\
+\midrule
+
+\textbf{maj} & 0 \\
+\textbf{6} & 1 \\
+\textbf{maj7} & 2 \\
+\textbf{m} & 3 \\
+\textbf{m6} & 4 \\
+\textbf{m7} & 5 \\
+\textbf{7} & 6 \\
+\textbf{aug} & 7 \\
+\textbf{dim} & 8 \\
+\textbf{dim7} & 9 \\
+\textbf{m7b5} & 10 \\
+\textbf{UnknownHarmony} & 11 \\
+\bottomrule
+\end{tabular}
+
+In base 12, a chord can be represented as integer.
+
 \item Chord data structures (alphabet), base 12 representation
 
 \item Ignoring duration (future work)
