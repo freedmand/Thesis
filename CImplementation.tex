@@ -50,33 +50,16 @@ ChordToInt(c) =
 
 Extracting features from an integer $i$ representing a chord is then a simple task that can be represented in psuedocode as follows:
 
-\begin{align*}
-ExtractNoChord(i) &= \begin{cases}
-1 & \text{if }i = 0 \\
-144 \cdot p(Bass) + 12 \cdot p(Root) + h(Harmony) + 1 & \text{otherwise}
-\end{cases} //
-ExtractBass(i) &=  //
-ExtractRoot(i) &=  //
-ExtractHarmony(i) &=  //
-\end{align}
-
-  return chord == 0;
-}
-
-static inline int extractBass(int16_t chord) {
-  return (chord - 1) / (HARMONY_SIZE * PITCH_SIZE);
-}
-
-static inline int extractRoot(int16_t chord) {
-  return ((chord - 1) / HARMONY_SIZE) % PITCH_SIZE;
-}
-
-static inline int extractHarmony(int16_t chord) {
-  return (chord - 1) % HARMONY_SIZE;
-
-% \item Chord data structures (alphabet), base 12 representation
-
-% \item Ignoring duration (future work)
+\begin{verbatim}
+ExtractFeatures(i)
+  if (i = 0)
+    return NoChord
+  else
+    Bass = (i - 1) / 144
+    Root = ((i - 1) / 12) mod 12
+    Harmony = (i - 1) mod 12
+    return (Bass, Root, Harmony)
+\end{verbatim}
 
 \subsection{Bitwise representation of harmonies}
 
