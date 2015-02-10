@@ -48,10 +48,11 @@ ChordToInt(c) =
 \end{cases}
 \]
 
+
 Extracting features from an integer $i$ representing a chord is then a simple task that can be represented in psuedocode as follows:
 
 \begin{verbatim}
-ExtractFeatures(i)
+function ExtractFeatures(i)
   if (i = 0)
     return NoChord
   else
@@ -61,9 +62,35 @@ ExtractFeatures(i)
     return (Bass, Root, Harmony)
 \end{verbatim}
 
-\subsection{Bitwise representation of harmonies}
+\subsection{Bitwise representation of harmony}
 
-For quick computation of chord distances based on pitch classes, a 11-bit integer can represent harmony, where the $i$th bit represents whether the interval $i+1$ is included in the chord or not (see figure~\ref{fig:qualitytable}).
+Chord quality can be represented as a 12-bit integer in which each bit corresponds to whether a certain interval is included. This compact representation provides a means for quick computation and allows chord distance computations to be represented
+
+, a 12-bit integer can represent harmony in which each bit corresponds to whether a certain interval is included in the chord or not. Since leading 0's are excluded, the representation can start with 1 in the first binary position (right-to-left) to represent the root of the chord. Thus, a concise 12-bit integer representation of harmony consists of a 1 in the first binary position with the following $i$th From right-to-left, the $i$th bit represents whether the interval $i - 1$ (where 0 is the root note) is included in the chord or not (see figure~\ref{fig:qualitytable}). All harmonies used in the program and associated intervals can be seen in figure~\ref{fig:qualitybitstable}.
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Chord Quality       & Shorthand & Binary Representation & Base 10 Representation \\
+\midrule
+Major               &           & 10010001     & 145  \\
+Major 6th           & 6         & 10001001     & 137  \\
+Major 7th           & maj7      & 1001001      & 73   \\
+Minor               & m         & 100010001    & 273  \\
+Minor 6th           & m6        & 100010010001 & 2193 \\
+Minor 7th           & m7        & 10010001001  & 1161 \\
+Dominant 7th        & 7         & 10010010001  & 1169 \\
+Augmented           & aug       & 1001001001   & 585  \\
+Diminished          & dim       & 10001001001  & 1097 \\
+Diminished 7th      & dim7      & 1010010001   & 657  \\
+Half-diminished 7th & m7b5      & 1010001001   & 649  \\
+\bottomrule
+\end{tabular}
+\caption{Binary Representation of Chords}
+\label{fig:qualitytable}
+\end{center}
+\end{figure}
 
 \item Cleverness with representing chords and harmonies as integers and allowing simple bitwise operations and bitmasks
 
