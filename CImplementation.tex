@@ -7,11 +7,11 @@
 The Smith-Waterman algorithm is typically used in bioinformatic applications in which the alphabet is typically restricted to DNA or protein characters. To use an alphabet that contains all the chord symbols, a bijective function can be established between every type of chord and a unique 16 bit integer. Recall a chord can be described with the following grammar:
 
 \begin{align*}
-Chord &\to Root\ Harmony \ Bass \mid NoChord \\
+Chord &\to Root\ Harmony \ Bass \mid \textbf{NoChord} \\
 Root &\to PitchClass \\
 Bass &\to PitchClass \\
-PitchClass &\to \bm{A} \mid \bm{A\#/Bb} \mid \bm{B} \mid \bm{C} \mid \bm{C\#/Db} \mid \bm{D} \mid \bm{D\#/Eb} \mid \bm{E} \mid \bm{F} \mid \bm{F\#/Gb} \mid \bm{G} \mid \bm{G\#/Ab} \\
-Harmony &\to \bm{maj} \mid \bm{6} \mid \bm{maj7} \mid \bm{m} \mid \bm{m6} \mid \bm{m7} \mid \bm{7} \mid \bm{aug} \mid \bm{dim} \mid \bm{dim7} \mid \bm{m7b5} \mid \end{align*}
+PitchClass &\to \textbf{A} \mid \textbf{A\#/Bb} \mid \textbf{B} \mid \textbf{C} \mid \textbf{C\#/Db} \mid \textbf{D} \mid \textbf{D\#/Eb} \mid \textbf{E} \mid \textbf{F} \mid \textbf{F\#/Gb} \mid \textbf{G} \mid \textbf{G\#/Ab} \\
+Harmony &\to \textbf{maj} \mid \textbf{6} \mid \textbf{maj7} \mid \textbf{m} \mid \textbf{m6} \mid \textbf{m7} \mid \textbf{7} \mid \textbf{aug} \mid \textbf{dim} \mid \textbf{dim7} \mid \textbf{m7b5} \mid \end{align*}
 
 \item Chord data structures (alphabet), base 12 representation
 
