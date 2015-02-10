@@ -35,24 +35,52 @@ $PitchClass$ & $p(PitchClass)$ & \hspace*{2cm} & $Harmony$ & $h(Harmony)$ \\
 In base 12, a chord that is not \textbf{NoChord} can be represented as an integer in which the digits are positioned as follows:
 
 \begin{center}
-\framebox[1.5\width]{\textbf{Bass} (0-11)}\framebox[1.5\width]{\textbf{Root} (0-11)}\framebox[1.5\width]{\textbf{Harmony} (0-11)}
+\framebox[1.5\width]{$p(Bass)$ (0-11)}\framebox[1.5\width]{$p(Root)$ (0-11)}\framebox[1.5\width]{$h(Harmony)$ (0-11)}
 \end{center}
 
-This can be calculated as $(12 \cdot 12) \cdot \textbf{Bass} + 12 \cdot \textbf{Root} + \textbf{Harmony}$. To include \textbf{NoChord}, the base 12 representation of a chord can be shifted by $1$ and $0$ can be reserved for \textbf{NoChord}, thus a bijective function $ChordToInt$ to map any chord $c$ to an integer can be calculated as follows:
+This can be calculated as $(12 \cdot 12) \cdot p(Bass) + 12 \cdot p(Root) + h(Harmony)$. To include \textbf{NoChord}, the base 12 representation of a chord can be shifted by $1$ and $0$ can be reserved for \textbf{NoChord}, thus a bijective function $ChordToInt$ to map any chord $c$ to an integer can be calculated as follows:
 
 \[
 ChordToInt(c) = 
 \begin{cases}
 0 & \text{if }c = \textbf{NoChord} \\
-144 \cdot \textbf{Bass} + 12 \cdot \textbf{Root} + \textbf{Harmony} + 1 & \text{otherwise}
+144 \cdot p(Bass) + 12 \cdot p(Root) + h(Harmony) + 1 & \text{otherwise}
 \end{cases}
 \]
 
-\item Chord data structures (alphabet), base 12 representation
+Extracting features from an integer $i$ representing a chord is then a simple task that can be represented in psuedocode as follows:
 
-\item Ignoring duration (future work)
+\begin{align*}
+ExtractNoChord(i) &= \begin{cases}
+1 & \text{if }i = 0 \\
+144 \cdot p(Bass) + 12 \cdot p(Root) + h(Harmony) + 1 & \text{otherwise}
+\end{cases} //
+ExtractBass(i) &=  //
+ExtractRoot(i) &=  //
+ExtractHarmony(i) &=  //
+\end{align}
+
+  return chord == 0;
+}
+
+static inline int extractBass(int16_t chord) {
+  return (chord - 1) / (HARMONY_SIZE * PITCH_SIZE);
+}
+
+static inline int extractRoot(int16_t chord) {
+  return ((chord - 1) / HARMONY_SIZE) % PITCH_SIZE;
+}
+
+static inline int extractHarmony(int16_t chord) {
+  return (chord - 1) % HARMONY_SIZE;
+
+% \item Chord data structures (alphabet), base 12 representation
+
+% \item Ignoring duration (future work)
 
 \subsection{Bitwise representation of harmonies}
+
+For quick computation of chord distances based on pitch classes, a 11-bit integer can represent harmony, where the $i$th bit represents whether the interval $i+1$ is included in the chord or not (see figure~\ref{fig:qualitytable}).
 
 \item Cleverness with representing chords and harmonies as integers and allowing simple bitwise operations and bitmasks
 
