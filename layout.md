@@ -16,6 +16,7 @@ figures/rectangle/rectangle.png
 Fourier.tex
 figures/eleanor_rigby/eleanor_rigby.png
 FourierContinued.tex
+figures/eleanor_chroma/eleanor_chroma.png
 ComputationChordExtract.tex
 PossibleHarmonicComparisons.tex
 DistanceFunction.tex
