@@ -9,6 +9,7 @@ PitchClass.tex
 ChordTheory.tex
 IntroductionTheory.tex
 figures/cmajorchord1/cmajorchord1.png
+basschord.tex
 chordmir.tex
 AudioFiles.tex
 figures/rectangle/rectangle.png
