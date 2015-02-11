@@ -14,6 +14,7 @@ chordmir.tex
 AudioFiles.tex
 figures/rectangle/rectangle.png
 Fourier.tex
+figures/eleanor_rigby/eleanor_rigby.png
 ComputationChordExtract.tex
 PossibleHarmonicComparisons.tex
 DistanceFunction.tex
