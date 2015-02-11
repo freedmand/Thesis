@@ -5,6 +5,7 @@ figures/virtualpitch/Components.tex
 music2.tex
 figures/piano/piano.png
 notecontinued.tex
+PitchClass.tex
 ChordTheory.tex
 IntroductionTheory.tex
 figures/cmajorchord1/cmajorchord1.png
