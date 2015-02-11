@@ -2,10 +2,10 @@ The \textit{bass} note of a chord is its lowest note. A chord's bass note is oft
 
 The notation of a chord can be outlined with the following context-free grammar
 
-\begin{align*}
+\begin{alignat*}
 Chord &\to Root\ Quality \mid Root\ Quality\ \texttt{/} \ Bass \\
 Root &\to NoteName \\
 Bass &\to NoteName \\
 Quality &\to \textbf{maj} \mid \textbf{6} \mid \textbf{maj7} \mid \textbf{m} \mid \textbf{m6} \mid \textbf{m7} \mid \textbf{7} \mid \textbf{aug} \mid \textbf{dim} \mid \textbf{dim7} \mid \textbf{m7b5}
-\end{align*}
+\end{alignat*}
 where $NoteName$ is a note name according to the context-free grammar in figure~\ref{fig:cfgnote}.
