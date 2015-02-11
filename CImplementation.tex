@@ -69,7 +69,7 @@ Chord quality can be represented as a 12-bit integer in which each bit correspon
 , a 12-bit integer can represent harmony in which each bit corresponds to whether a certain interval is included in the chord or not. Since leading 0's are excluded, the representation can start with 1 in the first binary position (right-to-left) to represent the root of the chord. Thus, a concise 12-bit integer representation of harmony consists of a 1 in the first binary position with the following $i$th From right-to-left, the $i$th bit represents whether the interval $i - 1$ (where 0 is the root note) is included in the chord or not (see figure~\ref{fig:qualitytable}). All harmonies used in the program and associated intervals can be seen in figure~\ref{fig:qualitybitstable}.
 
 \begin{figure}[h!]
-\begin{center}
+\centering
 \begin{tabular}{llll}
 \toprule
 Chord Quality       & Shorthand & Binary Representation & Base 10 Representation \\
@@ -89,7 +89,6 @@ Half-diminished 7th & m7b5      & 1010001001   & 649  \\
 \end{tabular}
 \caption{Binary Representation of Chords}
 \label{fig:qualitybitstable}
-\end{center}
 \end{figure}
 
 \item Cleverness with representing chords and harmonies as integers and allowing simple bitwise operations and bitmasks
