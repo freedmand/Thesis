@@ -1,5 +1,8 @@
 \subsection{Classifying pitches from audio files}
 
-The \textit{Fourier transform} is a mathematical algorithm that can be used to extract frequencies from a series of amplitudes. The Fourier transform can be applied to an audio file using a \textit{sliding window} in which the data points are analyzed in chunks. The size of the window is a balance in precision---the larger the window the finer the frequency resolution; the smaller the window the more closely note onsets and offsets can be detected.
+The \textit{Fourier transform} is a mathematical algorithm that can be used to extract frequencies from a series of amplitudes. The Fourier transform can be applied to an audio file using a \textit{sliding window} in which the data points are analyzed in chunks. The window is of a set size to contain a certain number of data points and traverses the data linearly in equal, potentially overlapping steps. The size of the window is a balance in precision---the larger the window size the finer the frequency resolution; the smaller the window size the more closely note onsets and offsets can be detected.
 
-Most modern audio files are sampled at 44000 $Hz$, which means that there are 44,000 data points for every second of audio.
+Most modern audio files are sampled at 44000 $Hz$, which means that there are 44,000 data points for every second of audio. Let $sr$ denote the sampling rate of an audio file in $Hz$. For a given segment of audio consisting of $n$ data points, the Fourier transform returns $n$ values, where the magnitude of the $i$th value corresponds to the strength of the frequency $\frac{sr \cdot i}{n}Hz$.
+
+Pitch classification of a segment of audio corresponds to finding peaks in this array of magnitude values.
+
