@@ -10,6 +10,7 @@ IntroductionTheory.tex
 figures/cmajorchord1/cmajorchord1.png
 chordmir.tex
 AudioFiles.tex
+figures/rectangle/rectangle.png
 ComputationChordExtract.tex
 PossibleHarmonicComparisons.tex
 DistanceFunction.tex
