@@ -3,12 +3,12 @@ Western music is based on a division of 12 distinct frequencies per \textit{octa
 \textit{Note names} are used to classify the pitches in the chromatic scale. Note names consist of a base name and 0 or more \textit{accidentals}. The base names of a note correspond to the white keys on a piano---in any one given octave there are the following names: $C$, $D$, $E$, $F$, $G$, $A$, and $B$. A base note name can optionally be decorated with an indefinite number of sharps ($\#$) or flats ($b$), but not both, in the note name. This can be illustrated with the following context-free grammar (figure~\ref{fig:cfgnote}):
 \begin{figure}[h!]
 \centering
-\begin{alignat*}
+\begin{align*}
 NoteName &\to BaseNote \mid BaseNote\ SharpAccidentals \mid BaseNote\ FlatAccidentals \\
 BaseNote &\to \mathbf{C} \mid \mathbf{D} \mid \mathbf{E} \mid \mathbf{F} \mid \mathbf{G} \mid \mathbf{A} \mid \mathbf{B} \\
 SharpAccidentals &\to \bm{\textit{\#}}\ SharpAccidentals \mid \bm{\textit{\#}} \\
 FlatAccidentals &\to \bm{b}\ FlatAccidentals \mid \bm{b}
-\end{alignat*}
+\end{align*}
 \caption{Context-free grammar of a note name}
 \label{fig:cfgnote}
 \end{figure}
