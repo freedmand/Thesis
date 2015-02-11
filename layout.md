@@ -13,6 +13,7 @@ basschord.tex
 chordmir.tex
 AudioFiles.tex
 figures/rectangle/rectangle.png
+Fourier.tex
 ComputationChordExtract.tex
 PossibleHarmonicComparisons.tex
 DistanceFunction.tex
