@@ -1,6 +1,6 @@
 \subsection{Classifying chords from audio files}
 
-Chord identification from audio files is a difficult task that compounds the inexactness of pitch recognition and musical data collection into a more error-prone procedure. Chapter~\ref{computationchordextract} surveys existing techniques and their advantages and disadvantages, but this section will overview basic techniques used.
+Chord identification from audio files is a difficult task that compounds the inexactness of pitch recognition and musical data collection into a seemingly more error-prone procedure but often relies on advanced algorithms to perform surprisingly well. Chapter~\ref{computationchordextract} surveys existing techniques and their advantages and disadvantages, but this section will overview basic techniques used.
 
 \textit{Machine learning} algorithms are commonly used to classify chords from \textit{chroma features}. Chroma features represent the analyzed intensity of each pitch class by compounding frequencies from different octaves into a single bin. Machine learning involves training models based on known data and then observing how well they perform on new, or \textit{test}, data. In the context of music informatics, human-annotated or recognized chord progressions are referred to as \textit{ground-truth} sets\cite{BurgoyneEtAl_2011_AnExpeGrouSet}, so chord identification algorithms are trained and tested again ground-truth data.
 
