@@ -11,6 +11,7 @@ IntroductionTheory.tex
 figures/cmajorchord1/cmajorchord1.png
 basschord.tex
 chordmir.tex
+keysignature.tex
 chordprogressionprimer.tex
 AudioFiles.tex
 figures/rectangle/rectangle.png
