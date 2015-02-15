@@ -2,7 +2,7 @@
 
 \subsection{Considerations}
 
-Computationally comparing chord progressions and approximating subjective human notions of similarity is a difficult task. Influential or unique chord progressions are frequently discussed in cultural contexts \cite{ogihara2008n}. Looking for local similarities between chord progressions has proved effective \cite{hanna2009alignment} and seems to match human intuition. When songs are said to be similar it does not mean that both songs' progressions are similar globally, or throughout the entire song, but rather that there are identical or near-identical local sections of similarity. For instance, The Beatles song \textit{Let It Be} has a progression of $I - V - vi - IV$ occurring at the beginning and frequently during the song. The chorus starts with a different progression but \textit{Let It Be} is still classed with songs of the progression $I - V - vi - IV$ and is included on Wikipedia's "List of songs containing the I–V–vi–IV progression," which at the time of writing includes 189 songs\cite{wikiprog1}. Another famous progression, $vi-IV-I-V$ (which is a cyclic shift of the previous progression), has even been dubbed the "Sensitive Female Chord Progression" for its use in countless pop songs\cite{hirsh2008}.
+Computationally comparing chord progressions and approximating subjective human notions of similarity is a difficult task. Influential or unique chord progressions are frequently discussed in cultural contexts \cite{ogihara2008n}. Looking for local similarities between chord progressions has proved effective\cite{hanna2009alignment} and seems to match human intuition. When songs are said to be similar it does not mean that both songs' progressions are similar globally, or throughout the entire song, but rather that there are identical or near-identical local sections of similarity. For instance, The Beatles song \textit{Let It Be} has a progression of $I - V - vi - IV$ occurring at the beginning and frequently during the song. The chorus starts with a different progression but \textit{Let It Be} is still classed with songs of the progression $I - V - vi - IV$ and is included on Wikipedia's "List of songs containing the I–V–vi–IV progression," which at the time of writing includes 189 songs\cite{wikiprog1}. Another famous progression, $vi-IV-I-V$ (which is a cyclic shift of the previous progression), has even been dubbed the "Sensitive Female Chord Progression" for its use in countless pop songs\cite{hirsh2008}.
 
 Chord progression identity is a salient factor in harmonically understanding a song and preserving notions of local similarity are essential. The following sections detail algorithms that can be used to compare chord progressions, their advantages and disadvantages, and basic experimental results, if any.
 
@@ -12,7 +12,7 @@ This is perhaps the most basic implementation of chord progression comparison. F
 
 Since the songs may be in different keys, the algorithm can iterate over all 12 transpositions of a song and pick out the maximal result. Given a chord transposition function $t_s$ that transposes a chord by $s$ semitones, the algorithm can be written: \[ \max_{s=0}^{12} \sum_{i=0}^n C_d({c1}_i, t_s({c2}_i)) \]
 
-For songs of unequal length ${n1}$ and ${n2}$ with chord progressions ${c1}$ and ${c2}$, respectively, the algorithm can be revised by computing the maximum resulting score at each position of the shorter song shifted along the longer song. Assuming the second song is the shorter song $({n2} < {n1})$, the revised resulting score can be computed: \[ \max_{s=0}^{12} \max_{i=0}^{{n1} - {n2}} \sum_{j=0}^{n2} C_d({c1}_{i+j}, {c2}_j) \]
+For songs of unequal length ${n1}$ and ${n2}$ with chord progressions ${c1}$ and ${c2}$, respectively, the algorithm can be revised by computing the maximum resulting score at each position of the shorter song shifted along the longer song. Assuming the second song is the shorter song $({n2} < {n1})$, the revised resulting score can be computed: \[ \max_{s=0}^{12} \max_{i=0}^{{n1} - {n2}} \sum_{j=0}^{n2} C_d({c1}_{i+j}, t_s({c2}_j)) \]
 
 The advantages of the simple global comparison are that the algorithm is simple to implement and compute. Its computation costs are relatively low with a linear running time in the case of equal chord progression lengths. Unfortunately, in unequal song length comparisons the running time is quadratic in terms of the product of both songs' chordal lengths. These computation times are assuming a constant-time distance function.
 
@@ -20,56 +20,10 @@ The disadvantages of global comparison are that it neglects the power of local c
 
 \subsection{N-Gram Comparison}
 
-To attempt to enhance the power of localized comparisons, \text{n-grams} can be used to count occurrences of chord subsequences. An n-gram is just a sequence of a fixed length $n$, where 2-gram would refer to a sequence of length 2, 3-gram would refer to a sequence of length 3, and so on. Using a sliding window
+To attempt to enhance the power of localized comparisons, \textit{n-grams} can be used to measure distances between chord subsequences. An n-gram is just a sequence of a fixed length $n$, where 2-gram would refer to a sequence of length 2, 3-gram would refer to a sequence of length 3, and so on. Using two sliding windows fixed at length $n_g$, both songs can be traversed to calculate chordal distances between every n-gram in both songs and sum the distances. The chordal distance between two n-grams can be calculated by summing the chordal distance of each vertical pair of chords within the n-gram, essentially the global comparison algorithm of equal length applied within a small window. This can be expressed: \[\sum_{i=0}^{n1 - n_g} \sum_{j=0}^{n2 - n_g} \left( \sum_{k=0}^{n_g} C_d({c1}_{i+k}, {c2}_{j+k}) \right) \]
 
-\item Using a sliding window of n-grams (tried 4), can we see the distribution of top scores and make some sort of claim based on that.
+To take into account songs in different keys, transpositions can easily be factored in to find the key with the maximal score: \[\max_{s=0}^{12} \sum_{i=0}^{n1 - n_g} \sum_{j=0}^{n2 - n_g} \left( \sum_{k=0}^{n_g} C_d({c1}_{i+k}, t_s({c2}_{j+k})) \right) \]
 
-\item Advantages: Compares localized alignments, that is alignments in different positions.
+A nice advantage of using n-grams is that all local regions of similarity are included, even if it's the last $n_g$ chords of one song and the first $n$ of another. A disadvantage is the running time of the algorithm, which is quadratic and in practice proved to be slower than other measures. Another disadvantage is that the window size, $n_g$, must be decided ahead of time and is limited. Finally, there is still not a good means of compensating for small errors, like scattered occurrences of erroneous chords.
 
-\item Disadvantages: Computationally expensive. Does not work for arbitrary window lengths without another exponent in computation time required. Does not account for marginal errors well.
-
-\subsection{Minimum Edit Distance}
-
-\item Global comparison, assign cost to different edit distances and find minimum required "transformation" between two songs. Uses dynamic programming and can be done in quadratic time.
-
-\item Disadvantages: global alignments only.
-
-\subsection{Smith-Waterman}
-
-Sequence alignment refers to the computational task of trying to find common subsequences within two different sequences with minimal gaps. As a simplified example, consider trying to align the following words:
-
-% -atte
-%  || |
-% pat-e
-
-\section{Smith-Waterman Algorithm}
-
-The Smith-Waterman algorithm is used to find optimal local alignments between two sequences based on a cost matrix for symbols of the alphabet being used and defined gap costs.
-
-A matrix $H$ is constructed in the following manner:
-\[ H(i,0) = 0, 0 \leq i \leq m \]
-\[ H(0,j) = 0, 0 \leq j \leq n \]
-\[ H(i,j) = \hbox{max} \begin{cases} 0 \\ H(i-1,j-1)+s(a_i,b_j) \\ \hbox{max}_{k \geq 1} \left\{ H(i-k,j)+W_k \right\} \\ \hbox{max}_{l \geq 1}\left\{ H(i, j-l)+W_l) \right\} \end{cases}  \]
-
-\item Localized comparison, dynamic programming, find minimum number of required "transformations" and optimal localized slice. Dynamic programming
-
-\item Works well with inexact data, can deal with common pitfalls of chord extraction.
-
-\item Isolates similar substructures.
-
-\item Does not penalize closely related chords, i.e. Em7 and Gmaj
-
-\item Difficulty in extracting multiple "best" options but good at finding one top contender
-
-\item Difficulty in comparing scores
-
-\subsection{Example Smith-Waterman Algorithm}
-
-The following example shows how the Smith-Waterman algorithm could be applied to the alphabet of musical chord symbols:
-
-\[ \begin{array}{cccccccc} & - & Cmaj & Fmaj & Cmaj & Gmaj & Fmaj & Cmaj & \\ - & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \\ Cmaj & 0 & 3 & 0 & 3 & 0 & 0 & 3 & \\ Fmaj & 0 & 0 & 6 & 2 & 1 & 3 & 0 & \\ Dmin & 0 & 0 & 2 & 4 & 0 & 0 & 1 & \\ Gmaj & 0 & 0 & 0 & 0 & 7 & 3 & 0 & \\ Cmaj & 0 & 3 & 0 & 3 & 3 & 5 & 6 & \\ Gmaj & 0 & 0 & 1 & 0 & 6 & 2 & 3 & \\ Gmaj & 0 & 0 & 0 & 0 & 3 & 4 & 0 & \\ \end{array} \]
-
-This example assumes the following costs:
-
-If the chord begins on the same root, then add 3 \\
-Otherwise, subtract 4 \\
+I implemented a simple Python program that calculates this algorithm using 4-grams and the Harte distance metric (see section CITE) to show pairwise comparisons between the songs \textit{Let It Be} by The Beatles, \textit{When I Come Around} by Greenday, and a live rendition of \textit{Let It Be}. For the maximal key transposition, every pair of 4-grams' distances are collected and plotted as a histogram. The maximum distance between any two 4-grams is 4.0. The x-axis corresponds to the 4-gram distance and the y-axis corresponds to frequency of occurrence in the pairwise comparison between the two songs. The results are shown in figure~\ref{fig:ngramhist}.
