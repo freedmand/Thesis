@@ -23,6 +23,7 @@ FourierContinued2.tex
 ChordIdentification.tex
 ComputationChordExtract.tex
 PossibleHarmonicComparisons.tex
+chordprogcomp2.tex
 DistanceFunction.tex
 CImplementation.tex
 InitialResults.tex
