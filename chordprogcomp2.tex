@@ -1,0 +1,52 @@
+
+\item Using a sliding window of n-grams (tried 4), can we see the distribution of top scores and make some sort of claim based on that.
+
+\item Advantages: Compares localized alignments, that is alignments in different positions.
+
+\item Disadvantages: Computationally expensive. Does not work for arbitrary window lengths without another exponent in computation time required. Does not account for marginal errors well.
+
+\subsection{Minimum Edit Distance}
+
+\item Global comparison, assign cost to different edit distances and find minimum required "transformation" between two songs. Uses dynamic programming and can be done in quadratic time.
+
+\item Disadvantages: global alignments only.
+
+\subsection{Smith-Waterman}
+
+Sequence alignment refers to the computational task of trying to find common subsequences within two different sequences with minimal gaps. As a simplified example, consider trying to align the following words:
+
+% -atte
+%  || |
+% pat-e
+
+\section{Smith-Waterman Algorithm}
+
+The Smith-Waterman algorithm is used to find optimal local alignments between two sequences based on a cost matrix for symbols of the alphabet being used and defined gap costs.
+
+A matrix $H$ is constructed in the following manner:
+\[ H(i,0) = 0, 0 \leq i \leq m \]
+\[ H(0,j) = 0, 0 \leq j \leq n \]
+\[ H(i,j) = \hbox{max} \begin{cases} 0 \\ H(i-1,j-1)+s(a_i,b_j) \\ \hbox{max}_{k \geq 1} \left\{ H(i-k,j)+W_k \right\} \\ \hbox{max}_{l \geq 1}\left\{ H(i, j-l)+W_l) \right\} \end{cases}  \]
+
+\item Localized comparison, dynamic programming, find minimum number of required "transformations" and optimal localized slice. Dynamic programming
+
+\item Works well with inexact data, can deal with common pitfalls of chord extraction.
+
+\item Isolates similar substructures.
+
+\item Does not penalize closely related chords, i.e. Em7 and Gmaj
+
+\item Difficulty in extracting multiple "best" options but good at finding one top contender
+
+\item Difficulty in comparing scores
+
+\subsection{Example Smith-Waterman Algorithm}
+
+The following example shows how the Smith-Waterman algorithm could be applied to the alphabet of musical chord symbols:
+
+\[ \begin{array}{cccccccc} & - & Cmaj & Fmaj & Cmaj & Gmaj & Fmaj & Cmaj & \\ - & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \\ Cmaj & 0 & 3 & 0 & 3 & 0 & 0 & 3 & \\ Fmaj & 0 & 0 & 6 & 2 & 1 & 3 & 0 & \\ Dmin & 0 & 0 & 2 & 4 & 0 & 0 & 1 & \\ Gmaj & 0 & 0 & 0 & 0 & 7 & 3 & 0 & \\ Cmaj & 0 & 3 & 0 & 3 & 3 & 5 & 6 & \\ Gmaj & 0 & 0 & 1 & 0 & 6 & 2 & 3 & \\ Gmaj & 0 & 0 & 0 & 0 & 3 & 4 & 0 & \\ \end{array} \]
+
+This example assumes the following costs:
+
+If the chord begins on the same root, then add 3 \\
+Otherwise, subtract 4 \\
