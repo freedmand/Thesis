@@ -1,11 +1,11 @@
-The \textit{bass} note of a chord is its lowest note. A chord's bass note is often its root, however this is not always the case. When the notes of a chord are such that its root is not the bass note, that chord is said to be \textit{inverted}. When the bass note of a chord is not the chord's root nor any of the pitches involved within the chord's quality, that chord is called a \textit{slash chord}. The name slash chord refers to its notation---a \textbf{D} minor chord with a root of \textbf{B} is notated as $Dm/B$.
+The \textit{bass} note of a chord is its lowest note. A chord's bass note is often its root, however this is not always the case depending on voicing. When the notes of a chord are such that its root note is not the bass note, that chord is said to be \textit{inverted}. When the bass note of a chord is not the chord's root nor any of the pitches involved within the chord's quality, that chord is called a \textit{slash chord}. The name slash chord refers to its notation---a $D$ minor chord with a root of $B$ is notated as $Dm/B$.
 
-The notation of a chord can be outlined with the following context-free grammar
+The notation of a chord can be outlined with the following context-free grammar:
 
 \begin{align*}
 Chord &\to Root\ Quality \mid Root\ Quality\ \texttt{/} \ Bass \\
 Root &\to NoteName \\
 Bass &\to NoteName \\
-Quality &\to \textbf{maj} \mid \textbf{6} \mid \textbf{maj7} \mid \textbf{m} \mid \textbf{m6} \mid \textbf{m7} \mid \textbf{7} \mid \textbf{aug} \mid \textbf{dim} \mid \textbf{dim7} \mid \textbf{m7b5}
+Quality &\to \text{maj} \mid \text{6} \mid \text{maj7} \mid \text{m} \mid \text{m6} \mid \text{m7} \mid \text{7} \mid \text{aug} \mid \text{dim} \mid \text{dim7} \mid \text{m7b5}
 \end{align*}
 where $NoteName$ is a note name according to the context-free grammar in figure~\ref{fig:cfgnote}.
