@@ -4,13 +4,21 @@
 
 \subsection{The Divergence}
 
-In chapter~\ref{chintro} notions of theory, human subjectivity, and analytical technique were shown to govern classification of information from musical songs; MIR attempts to reconcile the differences between these approaches in an automated fashion, but ground-truth data is difficult to find or even psychologically justify. This paper focuses on how analysis can be performed on music informatics retrieval (MIR) tasks using computationally analyzed data compared with human-derived ground-truth data, with a focus on chord progressions. Subjective perception is important as music only exists through the ears of a listener who often is informed and subconsciously guided by cultural cues; analytical computation and statistical methods also exhibit strong explanatory power and are shown to yield novel insights. 
+In chapter~\ref{chintro} notions of theory, human subjectivity, and analytical technique were shown to govern classification of information from musical songs; music informatics retrieval (MIR) attempts to reconcile the differences between these approaches in an automated fashion, but ground-truth data is difficult to find or psychologically justify in some cases. This paper focuses on how analysis can be performed on MIR tasks using computationally analyzed data compared with human-derived ground-truth data, with a focus on chord progressions. Subjective perception is important as music only exists through the ears of a listener who often is informed and subconsciously guided by cultural cues; analytical computation and statistical methods also exhibit strong explanatory power and are shown to yield novel insights. 
 
 % "chord labels form an abstraction of musical content with substantial explanatory power" \cite{de2008tonal}.
 
-\subsection{Harmony}
+\subsection{Why Harmony?}
 
-One question
+The most substantive body of MIR research focuses on melody, the sequences of pitches that lend themselves to memorable motifs. When one hums a song in their head it is usually the primary melody of a song, leading to the creation of a feature in smartphone applications \textit{Shazam} and \textit{Soundhound} that allow querying songs by melody CITE. Melodies can be famous for their haunting simplicity (the "duh-duh-duh-DUH" in Beethoven's 5th Symphony).
+
+Why does this paper emphasize harmonic content? Chords have been important since pre-Baroque times. \textit{Figured bass labels}, concise descriptions of a song's chordal content, were once the entire musical content keyboardists and organists received and would base improvised accompaniments over. Chords provide an abstraction of content in music\cite{de2008tonal}, the descriptive power of which is also the basis for composition. Progressions evoke powerful moods and can be definitive of genres. Chordal content can be a basis on which to identify cover songs which differ in melody, and provides a compact means to do so\cite{khadkevich2013large}. Chord progressions are a large and relatively unexplored means on which to query a database of songs. Lastly, comparing songs by chordal content has interesting consequences in clustering and identifying unique sounding songs and has the ability to contribute substantively to the body of MIR research.
+
+\section{Experimental Design}
+
+\subsection{Deciding on a chord extraction algorithm}
+
+There are many promising results in the field of chord extraction. The Music Information Retrieval Evaluation eXchange (MIREX) hosts yearly contests to extract chord progressions from audio, judging users' submissions with a set of publicly unreleased ground-truth data\footnote{http://www.music-ir.org/mirex/wiki/MIREX\_HOME}.
 
 \subsection{Background}
 
