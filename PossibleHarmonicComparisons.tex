@@ -16,7 +16,7 @@ The following notation will be used:
 ${c1}$ and ${c2}$   & The chord progressions of the two songs, respectively \\
 $c_i$               & The $i$th element of chord progression $c$ \\
 ${n1}$ and ${n2}$   & The length of ${c1}$ and ${c2}$, respectively \\
-$C_d$               & A chord distance function taking as argument two chords and returning a value; higher scores indicate stronger similarity  \\
+$C_d$               & A chord distance function that takes two chords and returns a value in which higher scores indicate stronger similarity  \\
 $t_s$               & A transposition function that takes a chord as an argument and transposes it $s$ semitones \\
 
 \bottomrule
@@ -27,7 +27,7 @@ $t_s$               & A transposition function that takes a chord as an argument
 
 \subsection{Simple Global Comparison}
 
-This is perhaps the most basic implementation of chord progression comparison. For two songs with chord progressions ${c1}$ and ${c2}$ of an identical length $n$, the algorithm iterates through one chord from each song simultaneously and computes a chordal distance between the pair of chords using a distance function $C_d$ in which higher scores indicate stronger similarity. The resulting score is: \[ \sum_{i=0}^n C_d({c1}_i, c2_i) \]
+This is perhaps the most basic implementation of chord progression comparison. For two songs with chord progressions ${c1}$ and ${c2}$ of an identical length $n$, the algorithm iterates through one chord from each song simultaneously and computes $C_d$. The resulting score is: \[ \sum_{i=0}^n C_d({c1}_i, c2_i) \]
 
 Since the songs may be in different keys, the algorithm can iterate over all 12 transpositions of a song and pick out the maximal result. Given a chord transposition function $t_s$ that transposes a chord by $s$ semitones, the algorithm can be written: \[ \max_{s=0}^{12} \sum_{i=0}^n C_d({c1}_i, t_s({c2}_i)) \]
 
