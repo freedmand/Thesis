@@ -10,33 +10,20 @@ Chord progression identity is a salient factor in harmonically understanding a s
 
 The following notation will be used:
 
-\begin{figure}[h!]
+\begin{figure}[h]
 \centering
 \begin{tabular}{rl}
-Major               &           & +4, +7     \\
-Major 6th           & 6         & +4, +7, +8 \\
-Major 7th           & maj7      & +4, +7, +11\\
-Minor               & m         & +3, +7     \\
-Minor 6th           & m6        & +3, +7, +9 \\
-Minor 7th           & m7        & +3, +7, +10\\
-Dominant 7th        & 7         & +4, +7, +10\\
-Augmented           & aug       & +4, +8     \\
-Diminished          & dim       & +3, +6     \\
-Diminished 7th      & dim7      & +3, +6, +9 \\
-Half-diminished 7th & m7b5      & +3, +6, +10\\
+${c1}$ and ${c2}$   & The chord progressions of the two songs, respectively \\
+$c_i$               & The $i$th element of chord progression $c$ \\
+${n1}$ and ${n2}$   & The length of ${c1}$ and ${c2}$, respectively \\
+$C_d$               & A chord distance function taking as argument two chords and returning a value; higher scores indicate stronger similarity  \\
+$t_s$               & A transposition function that takes a chord as an argument and transposes it $s$ semitones \\
+
 \bottomrule
 \end{tabular}
-\caption{Common chord qualities and associated intervals}
-\label{fig:qualitytable}
+\caption{Chord progression comparison notation}
+\label{fig:comparenotation}
 \end{figure}
-
-\begin{align*}
-{c1}\text{ and }{c2}     & \text{The chord progressions of two songs, respectively} \\
-{c_i}                    & \text{The }i\text{th element of chord progression }c \\
-{n1}\text{ and }{n2}     & \text{The length of }{c1}\text{ and }{c2}\text{, respectively} \\
-C_d                      & \text{A chord distance function taking as argument two chords and returning a value. Higher scores indicate stronger similarity} \\
-t_s                      & \text{A transposition function that takes a chord as an argument and transposes it }s\text{ semitones} \\
-\end{align*}
 
 \subsection{Simple Global Comparison}
 
