@@ -12,12 +12,13 @@ The following notation will be used:
 
 \begin{figure}[h]
 \centering
-\begin{tabular}{rp{5in}}
-${c1}$ and ${c2}$   & The chord progressions of the two songs, respectively \\
+\begin{tabular}{rp{5.5in}}
+${c1}$ and ${c2}$   & The chord progressions of the two songs being compared, respectively \\
 $c_i$               & The $i$th element of chord progression $c$ \\
 ${n1}$ and ${n2}$   & The length of ${c1}$ and ${c2}$, respectively \\
 $C_d$               & A chord distance function that takes two chords and returns a value in which higher scores indicate stronger similarity  \\
 $t_s$               & A transposition function that takes a chord as an argument and transposes it $s$ semitones \\
+\bottomrule
 \end{tabular}
 \caption{Chord progression comparison notation}
 \label{fig:comparenotation}
@@ -25,15 +26,15 @@ $t_s$               & A transposition function that takes a chord as an argument
 
 \subsection{Simple Global Comparison}
 
-This is perhaps the most basic implementation of chord progression comparison. For two songs with chord progressions ${c1}$ and ${c2}$ of an identical length $n$, the algorithm iterates through one chord from each song simultaneously and computes $C_d$. The resulting score is: \[ \sum_{i=0}^n C_d({c1}_i, c2_i) \]
+This is perhaps the most basic implementation of chord progression comparison. For two songs with chord progressions of an identical length $n$, the algorithm iterates through one chord from each song simultaneously and computes $C_d$. The resulting score is: \[ \sum_{i=0}^n C_d({c1}_i, c2_i) \]
 
-Since the songs may be in different keys, the algorithm can iterate over all 12 transpositions of a song and pick out the maximal result. Given a chord transposition function $t_s$ that transposes a chord by $s$ semitones, the algorithm can be written: \[ \max_{s=0}^{12} \sum_{i=0}^n C_d({c1}_i, t_s({c2}_i)) \]
+Since the songs may be in different keys, the algorithm can iterate over all 12 transpositions of a song and pick out the maximal result. With the chord transposition function $t_s$, the algorithm can be written: \[ \max_{s=0}^{12} \sum_{i=0}^n C_d({c1}_i, t_s({c2}_i)) \]
 
-For songs of unequal length ${n1}$ and ${n2}$ with chord progressions ${c1}$ and ${c2}$, respectively, the algorithm can be revised by computing the maximum resulting score at each position of the shorter song shifted along the longer song. Assuming the second song is the shorter song $({n2} < {n1})$, the revised resulting score can be computed: \[ \max_{s=0}^{12} \max_{i=0}^{{n1} - {n2}} \sum_{j=0}^{n2} C_d({c1}_{i+j}, t_s({c2}_j)) \]
+For songs of unequal length ${n1}$ and ${n2}$, respectively, the algorithm can be revised by computing the maximum resulting score at each position of the shorter song's chords shifted along the longer song's chords. Assuming the second song is the shorter song $({n2} < {n1})$, the revised resulting score can be computed: \[ \max_{s=0}^{12} \max_{i=0}^{{n1} - {n2}} \sum_{j=0}^{n2} C_d({c1}_{i+j}, t_s({c2}_j)) \]
 
 The advantages of the simple global comparison are that the algorithm is simple to implement and compute. Its computation costs are relatively low with a linear running time in the case of equal chord progression lengths. Unfortunately, in unequal song length comparisons the running time is quadratic in terms of the product of both songs' chordal lengths. These computation times are assuming a constant-time distance function.
 
-The disadvantages of global comparison are that it neglects the power of local comparisons and does not correct well for errors in automated chord progression analysis. For instance, let ${c1}$ be the chord progression, $(Am, Dm, E7, Am, ... , Am, Dm, E7, Am)$ where the four chords $(Am, Dm, E7, Am)$ repeat 100 times. Let ${c2}$ be the same chord progression but there is an extra $E$ chord after the 50th iteration due to a flawed extraction. The global comparison score using ${c1}$ and ${c2}$ will be roughly cut in half due to that singular error and the issue with the ensuing alignment, with more errors resulting in worse scores.
+The disadvantages of global comparison are that it neglects the power of local comparisons and does not correct well for errors in automated chord progression analysis. For instance, let ${c1}$ be the chord progression $(Am, Dm, E7, Am, ... , Am, Dm, E7, Am)$, where the four chords $(Am, Dm, E7, Am)$ repeat 100 times. Let ${c2}$ be the same chord progression but with an extra $E$ chord after the 50th iteration due to a flawed extraction. The global comparison score using ${c1}$ and ${c2}$ will be roughly cut in half due to that singular error and the issue with the ensuing alignment, with more errors resulting in potentially worse scores.
 
 \subsection{N-Gram Comparison}
 
