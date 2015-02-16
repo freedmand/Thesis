@@ -22,6 +22,7 @@ figures/eleanor_chroma/eleanor_chroma.png
 FourierContinued2.tex
 ChordIdentification.tex
 ComputationChordExtract.tex
+chorddistfuncs.tex
 PossibleHarmonicComparisons.tex
 figures/ngram/ngram.png
 ngram2.tex
