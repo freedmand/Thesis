@@ -1,10 +1,10 @@
 \subsection{Minimum Edit Distance}
 
-Minimum edit distance, or the \textit{Levenshtein distance}, is a distance metric that computes the minimum number of operations needed to transform one sequence into the other using \textit{deletion}, \textit{insertion}, and \textit{substitution}. Deletion entails removing an item from the sequence being transformed, insertion adding one item to the sequence, and substitution replacing an item from the sequence with another item. Each operation entails a cost, and the algorithm finds the minimal cost to transform one sequence into the other in quadratic time.
+Minimum edit distance, or the \textit{Levenshtein distance}, is a distance metric that computes the minimum number of operations needed to transform one sequence into the other using \textit{deletion}, \textit{insertion}, and \textit{substitution}. Deletion entails removing an item from the sequence being transformed, insertion adding one item to the sequence, and substitution replacing an item from the sequence with another item. Each operation entails a cost, and the function finds the minimal cost to transform one sequence into the other.
 
 The technique is most commonly applied to \textit{string matching} in which two strings of text are compared. For instance, assuming all operations are of equal cost, the minimum number of transformations needed to transform \texttt{MORDENT}, a rapid alteration of notes, to \texttt{MODESTO}, a modest musical mood, is 3:
 
-\texttt{MORDENT}
+\[\texttt{MORDENT}\]
 Apply \textit{deletion} on \texttt{R}:
 \[\texttt{MODENT}\]
 Apply \textit{substitution} to change \texttt{N} to \texttt{S}:
@@ -12,11 +12,11 @@ Apply \textit{substitution} to change \texttt{N} to \texttt{S}:
 Apply \textit{insertion} to add an \texttt{O} at the end:
 \[\texttt{MODESTO}\]
 
-Minimum edit distance is a \textit{dynamic programming} algorithm that solves a seemingly very complex problem by breaking it down into subproblems.
+Though minimum edit distance is frequently run on plaintext strings, there are no limitations to its alphabet. It can be easily abstracted to the alphabet of musical chords.
 
-\item Global comparison, assign cost to different edit distances and find minimum required "transformation" between two songs. Uses dynamic programming and can be done in quadratic time.
+The advantages of minimum edit distance are that it can compensate well for small errors at the global level of comparison. For instance, if there are two sequences of chords that are identical except for one minor error of transcription, minimum edit distance will only penalize the error with one deletion operation, a cost of 1, rather than an exponential decrease in score as is the case with simple global comparison (see section~\ref{simpleglobal}). Additionally, minimum edit distance is a \textit{dynamic programming} algorithm, which means it solves a seemingly very complex problem by breaking it down into subproblems, and its overall runtime is quadratic.
 
-\item Disadvantages: global alignments only.
+The primary disadvantage of minimum edit distance is that it can only be used to find global alignments between songs and does not harness the power of local alignments.
 
 \subsection{Smith-Waterman}
 
