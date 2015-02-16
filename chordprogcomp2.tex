@@ -1,5 +1,25 @@
 \subsection{Minimum Edit Distance}
 
+Minimum edit distance, or the \textit{Levenshtein distance}, is a distance metric that computes the minimum number of operations needed to transform one sequence into the other using \textit{deletion}, \textit{insertion}, and \textit{substitution}. Deletion entails removing one item from one of the sequences, insertion adding one item to one of the sequences, and substitution replacing an item from one sequence with another item. Each operation entails a cost, and the algorithm finds the minimal cost to transform one sequence into the other in quadratic time.
+
+The technique is most commonly applied to \textit{string matching} in which two strings of text are compared. For instance, assuming all operations are of equal cost, the minimum number of transformations needed to transform \texttt{MORDENT}, a rapid alteration of notes, to \texttt{MODESTO}, a modest musical mood, is 3:
+
+\[\texttt{MORDENT}\]
+
+Apply \textit{deletion} on \texttt{R}:
+
+\[\texttt{MODENT}\]
+
+Apply \textit{substitution} to change \texttt{N} to \texttt{S}:
+
+\[\texttt{MODEST}\]
+
+Apply \textit{insertion} to add an \texttt{O} at the end:
+
+\[\texttt{MODESTO}\]
+
+Minimum edit distance is a \textit{dynamic programming} algorithm that solves a seemingly very complex problem by breaking it down into subproblems.
+
 \item Global comparison, assign cost to different edit distances and find minimum required "transformation" between two songs. Uses dynamic programming and can be done in quadratic time.
 
 \item Disadvantages: global alignments only.
