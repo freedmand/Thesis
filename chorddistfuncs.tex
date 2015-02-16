@@ -2,6 +2,28 @@
 
 \subsection{Considerations}
 
+To begin to compare progressions of chords, it is essential to first have metrics to compare individual chords. Recall that a chord has the following components: \textit{root}, \textit{quality}, \textit{bass}, and \textit{nochord}. There are multiple approaches to comparing two chords. Both chords can be represented as the set of their pitch classes and set operations can be performed to formulate a distance; another approach may emphasize different structures such as the relationship between two chords' $root$ notes and $bass$ notes.
+
+It can be helpful to outline some basic comparisons of chords and describe how the chord metric should perform to outline the utility of a distance function. Assume a chord distance function $C_d$ takes two chords and returns a real number from $0$, indicating no similarity, to $1$, indicating perfect similarity.
+
+$C_d(C,Cm)$ should have a good similarity score since a common chord extraction error is to confuse the major and minor versions of a given chord based on the similarity of overtone content or ambiguity that is frequently used as a musical device. In terms of the pitch classes of $C$ major and $C$ minor, they are similar in that both have $C$ and $G$ but differ in that the former has $E$ and the latter $Eb$.
+
+$C_d(C,Am)$ should compare similarly as the chords are \textit{relatively similar}, which means that the key signatures formed by taking their roots and using their qualities as modes describe the same set of pitch classes. The pitch classes in $A$ minor have two overlapping elements with those in $C$ major.
+
+$C_d(C,Cmaj7)$ should score well as $C$ major 7 is an extension of $C$ major, which means it has the same root and bass and contains a superset of the pitch classes in $C$. Likewise, $C_d(C6, Am7)$ should compare nearly perfectly since both chords have the exact same set of pitch classes but differ in root and bass, which could be an error in chord extraction.
+
+$C_d(C7, C7/Bb)$ also can be expected to perform well as both chords describe identical sets of pitch classes and have the same root but differ in bass note.
+
+\subsubsection{Notation}
+
+$P_c$ all the pitch classes in a chord. If the \textbf{nochord} boolean is true this is the empty set ${}$.
+$root$ is a function that returns the pitch class of the root of the given chord.
+$quality$ is a function that returns the qualitative label of a chord that can be used with other functions to extract intervals and other factors.
+$bass$ is a function that returns the pitch class of the bass of the chord.
+$nochord$ is a function that returns whether the given chord is \textbf{nochord} or not.
+$I$ is a function that takes a quality and returns a set of intervals in semitones modulus 12 from the root (excluding the root).
+$V$ is a function that takes a quality and returns the 5th interval in the chord. For chords with major, minor, and dominant qualities, regardless of extension, this is the semitone $7$ steps above the root. For diminished chords and minor 7 flat 5 chords this is the semitone $6$ steps above the root. Finally, for augmented chords this is the semitone $8$ steps above the root.
+
 \subsection{Simple equality test}
 
 \subsection{Harte Distance Metric}
