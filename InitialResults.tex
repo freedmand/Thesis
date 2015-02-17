@@ -1,4 +1,36 @@
-\chapter{Initial Results}
+\chapter{Results}
+
+\section{Variables Used and Notation}
+
+This section details a number of experiments run on the data. To compare chord progressions, only the Smith-Waterman algorithm ($SW$) is used, with normalization measures \textit{raw score} and ${SW}_{norm}$ being tested. Gap costs (${gap}_{open}$ and ${gap}_{ext}$) are allowed to vary from 0 through 128 (maximum range of an 8-bit integer). The Harte distance metric ($Harte$) and Tonal Pitch Space ($TPS$) are used to evaluate chord distances. Lastly, multiplication and subtraction factors $m_x$ and $m_s$ are used to round the chord distance metrics to integers with an expected value below 0. A full summary of the variables and their tested ranges is as follows:
+
+\begin{align*}
+\textbf{Variables}                       & \hspace{1cm} & \textbf{Values} \\
+\text{Normalization } (norm)                    && \{\textit{raw score},{SW}_{norm}\} \\
+\text{Gap open cost } ({gap}_{open})                    && [0-128] \\
+\text{Gap extension cost } ({gap}_{ext})                && [0-128] \\
+\text{Chord Distance Metric } (C_d)            && \{Harte, TPS\} \\
+\text{Chord Distance Multiplier } (m_x)       && \{1, 30\} \\
+\text{Chord Distance Subtraction Factor } (m_s) && \{0, 30\} \\
+\end{align*}
+
+\subsection{Smith-Waterman Normalization}
+
+\subsection{Smith-Waterman Gap Costs}
+
+\subsection{Chord Distance Function}
+
+\subsection{Pairwise distance computation}
+
+\subsection{Clustering}
+
+\subsection{Visualization}
+
+\subsection{Ranking Fully Connected Pairwise Comparisons}
+
+\subsection{Ranking Random N-Gram Search}
+
+\subsection{Key-Finding Accuracy}
 
 \section{Smith-Waterman Results}
 
