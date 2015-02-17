@@ -1,5 +1,27 @@
-The calculation of $j$ consists of deriving four sets of tonal space for each chord Lerdahl outlines in which each subsequent level is a superset of the previous level. Level 1, $L_1$, of a chord $c$ returns a set only containing the chord's root note: \[L_1(c) = \{root(c)\}\] Level 2, $L_2$, returns a set containing a given chord's root note and fifth interval: \[L_2(c) = \{root(c), V(c)\}\] Level 3, $L_3$, returns a set containing all the pitch classes in a given chord: \[L_3(c) = P_c(c)\] Finally, level 4, $L_4$, consists of all the pitch classes in the key signature given: \[L_4(c,k) = P_c(k)\] With each level, one set from each chord being compared is used and the cardinality of the \textit{symmetric difference} ($\triangle$) is computed. The symmetric difference corresponds to the size of the set of unique elements between both sets being compared. For instance, $\{1,2,3\} \triangle \{2,3,4\} = \{1,4\}$. $j$ is calculated as follows:
+The calculation of $j$ consists of deriving four sets of tonal space for each chord Lerdahl outlines in which each subsequent level is a superset of the previous level. Level 1, $L_1$, of a chord $c$ returns a set only containing the chord's root note: \[L_1(c) = \{root(c)\}\] Level 2, $L_2$, returns a set containing a given chord's root note and fifth interval: \[L_2(c) = \{root(c), V(c)\}\] Level 3, $L_3$, returns a set containing all the pitch classes in a given chord: \[L_3(c) = P_c(c)\] Finally, level 4, $L_4$, consists of all the pitch classes in the key signature given: \[L_4(c,k) = P_c(k)\] With each level, two sets, one from each chord being compared, are used and the cardinality of the \textit{symmetric difference} ($\triangle$) is computed. The symmetric difference corresponds to the size of the set of unique elements between both sets being compared. For instance, $\{1,2,3\} \triangle \{2,3,4\} = \{1,4\}$. $j$ is calculated as follows:
 
 \[ j(c_1,c_2,k) = \frac{|L_1(c_1) \triangle L_1(c_2)| + |L_2(c_1) \triangle L_2(c_2)| + |L_3(c_1) \triangle L_3(c_2)| + |L_4(c_1,l) \triangle L_4(c_2,l)|}{2} \]
 
+Tonal Pitch Space (TPS) returns a value from 0.0 to 13.0 (in the case of more advanced key signature modes this upper bound is 14.0) in which lower scores correspond to higher similarity between two chords. To make this measure comparable with the Harte distance metric, it is a matter of inversion and division to give TPS a range of 0.0 to 1.0 in which 1.0 indicates perfect similarity:
+
+\[ C_d(c_1, c_2, k) = \frac{13.0 - (i(root(c_1), root(c_2)) + j(c_1, c_2, k))}{13.0} \]
+
+In the key of $C$ major, some example TPS results are calculated based on the chord comparisons of interest.
+
+\begin{align*}
+C_d(C,Cm,C\text{ major}) &= 0.884 &(11.5 \div 13) \\
+C_d(C,Am,C\text{ major}) &= 0.462 &(6.0 \div 13) \\
+C_d(C,Cmaj7,C\text{ major}) &= 0.962 &(12.5 \div 13) \\
+C_d(C6, Am7,C\text{ major}) &= 0.538 &(7.0 \div 13) \\
+C_d(C7, C7/Bb,C\text{ major}) &= 1.0 &(13.0 \div 13) \\
+\end{align*}
+
+Of interest, the comparison of $C6$ and $Am7$ has a significantly lower score of 0.538 than its perfect score under the Harte metric. The key information required in TPS penalizes $Am7$ more even though both $C6$ and $Am7$ describe the same pitch class sets.
+
+TPS does not take significantly longer to compute than the Harte metric and is grounded in more cognitive models of human chord perception.
+
 \subsubsection{Key Finding Using Tonal Pitch Step}
+
+One pitfall of TPS is that it requires advance knowledge of the key signature over which chords are being compared. Given a sequence of chords $s$ this factor can be estimated by finding the key $k$ that maximizes the sum of the TPS distance of every chord in $s$ against the chord describing the key. Calling the algorithm $K_e$, this can be expressed \[ K_e(s) = \max_k \sum_c^s C_d(c,k,k) \] where $k$ iterates through all 24 combinations of key signature root and mode, and the chord describing $k$ is constructed as having the root of $k$ and the quality corresponding to the mode.
+
+In their paper \textit{Tonal Pitch Step Distance}\cite{de2008tonal}, where this algorithm was proposed, the authors found that this simple formula produced many false positives, and modified the algorithm for use with the Western music they were testing as follows:
