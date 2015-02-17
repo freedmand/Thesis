@@ -59,8 +59,8 @@ The maximal element of the resulting matrix, $\max H$, defines the Smith-Waterma
 To retrieve positional information from a completed $H$ matrix, it is helpful to look at an example of the Smith-Waterman algorithm in action. Let the following chord progressions be represented as sequences $a$ and $b$:
 
 \begin{align*}
-a &= [C, F, Dm, G, C, G, G] \\
-b &= [C, F, C, G, F, C] \\
+a &= [C, F, C, G, F, C, G, Dm, C] \\
+b &= [F, C, Dm, G, F, C, Dm, C, F] \\
 \end{align*}
 
 This example uses an application of the simple equality chord distance measure \[C_d(c_1,c_2) = \begin{cases} 4 &\text{if }root(c_1) = root(c_2) \lor (nochord(c_1) \land nochord(c_2) \\ -3 &\text{otherwise} \end{cases} \]
@@ -80,8 +80,14 @@ The matrix is constructed with an empty first row and column (represented with a
 
 Enumerating the path from the red arrow results in the following sequence of arrows\[ [\nwarrow, \nwarrow, \leftarrow, \nwarrow, \nwarrow, \nwarrow, \uparrow, \nwarrow, \nwarrow] \]
 which can be applied to a bijection \[ operationFromArrow(arrow) = \begin{cases} \textit{substitution} &\text{if }arrow = \nwarrow \\ \textit{deletion} &\text{if }arrow = \leftarrow \\ \textit{insertion} &\text{if }arrow = \uparrow \end{cases} \]
-and reversed to produce the sequence
+and reversed to produce the sequence:
+\[ [substitution, substitution, insertion, substitution, substition, substitution, deletion, substitution, substitution] \]
 
+
+
+% C, F, C, *,  G, F, C, G,  Dm, C
+%   |  |  ins |  |  |  del |   |
+%   F, C, Dm, G, F, C, *,  Dm, C, F
 
 
 \item Localized comparison, dynamic programming, find minimum number of required "transformations" and optimal localized slice. Dynamic programming
