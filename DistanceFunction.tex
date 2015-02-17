@@ -1,28 +1,28 @@
-\section{Distance Function between Chords and Gap Costs}
+% \section{Distance Function between Chords and Gap Costs}
 
-\subsection{Considerations}
+% \subsection{Considerations}
 
-\item Should perform well comparing extracted data set to ground truth sets following MIR data (also separate from MIR set is valuable as untrained data).
+% \item Should perform well comparing extracted data set to ground truth sets following MIR data (also separate from MIR set is valuable as untrained data).
 
-\item Should classify chords with similar notes as similar, and place emphasis moreso on pitch class so as to avoid errors with key recognition and such
+% \item Should classify chords with similar notes as similar, and place emphasis moreso on pitch class so as to avoid errors with key recognition and such
 
-\subsection{Tonal Pitch-Step Distance}
+% \subsection{Tonal Pitch-Step Distance}
 
-\item Motivations, research, circle-of-fifths step
+% \item Motivations, research, circle-of-fifths step
 
-\item Dependence on key information, impracticality
+% \item Dependence on key information, impracticality
 
-\subsection{Harte Distance Metric}
+% \subsection{Harte Distance Metric}
 
-The Harte chord distance metric, proposed by Christopher Harte in \cite{harte2010towards}, is a simple and convenient means of calculating a score representing the distance between any two chords.
+% The Harte chord distance metric, proposed by Christopher Harte in \cite{harte2010towards}, is a simple and convenient means of calculating a score representing the distance between any two chords.
 
-Letting $P_c$ represent the given pitch classes of a chord, we can define Harte's formula as follows:
-\[ H(c_1,c_2) = \frac{\left| P_c(c_1) \cap P_c(c_2) \right|}{\left| P_c(c_1) \cup P_c(c_2) \right|} \]
+% Letting $P_c$ represent the given pitch classes of a chord, we can define Harte's formula as follows:
+% \[ H(c_1,c_2) = \frac{\left| P_c(c_1) \cap P_c(c_2) \right|}{\left| P_c(c_1) \cup P_c(c_2) \right|} \]
 
-\item Advantages: easy to implement, fast, concise
+% \item Advantages: easy to implement, fast, concise
 
-\item Disadvantages: does not consider full range of key in music. Ignores root.
+% \item Disadvantages: does not consider full range of key in music. Ignores root.
 
-\subsection{Other chord distance metrics}
+% \subsection{Other chord distance metrics}
 
-\item List others in Survey paper. Outside scope but could be tested in the future.
+% \item List others in Survey paper. Outside scope but could be tested in the future.
