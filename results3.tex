@@ -42,30 +42,20 @@ I ran a Python program that performs basin-hopping over 1,000 iterations for the
 
 \subsubsection{Results}
 
-                       & \hspace{1cm} & \textbf{Values} \\
-\text{Normalization } (norm)                    && \{\textit{raw score},{SW}_{norm}\} \\
-\text{Gap open cost } ({gap}_{open})                    && [0-128] \\
-\text{Gap extension cost } ({gap}_{ext})                && [0-128] \\
-\text{Chord Distance Metric } (C_d)            && \{Harte, TPS\} \\
-\text{Chord Distance Multiplier } (m_x)       && \{1, 30\} \\
-\text{Chord Distance Subtraction Factor } (m_s) && \{0, 30\} \\
-\end{align*}
-
-The set of variables that optimized the rank correlation $\rho$ was \[ \{norm=\textit{raw score}, C_d=Harte, {gap}_{open}=0, {gap}_{ext}=95, m_x=5, m_s=0\} \] with a $\rho$ score of 0.761642, which corresponds with a p-value of $1.0232365505\times 10^{-26317}$, or probability that there is not such a correlation. This result is extremely solid and shows a strong monotonic relationship. The $\tau$ score of this set of variables is $0.589671$ with a p-value of $1.5104 \times 10^{-23577}$. These results are charted in figures
+The set of variables that optimized the rank correlation $\rho$ was \[ \{norm=\textit{raw score}, C_d=Harte, {gap}_{open}=0, {gap}_{ext}=95, m_x=5, m_s=0\} \] with a $\rho$ score of 0.761642, which corresponds with a p-value of $1.0232365505\times 10^{-26317}$, or probability that there is not such a correlation. This result is extremely solid and shows a strong monotonic relationship. The $\tau$ score of this set of variables is $0.589671$ with a p-value of $1.5104 \times 10^{-23577}$. These results are charted in figures~\ref{fig:0-0-0-95-5-0} and \ref{fig:testgraph}.
 
 
+% \subsection{Ranking Random N-Gram Search}
 
-\subsection{Ranking Random N-Gram Search}
+% \subsection{Key-Finding Accuracy}
 
-\subsection{Key-Finding Accuracy}
+% \section{Smith-Waterman Results}
 
-\section{Smith-Waterman Results}
+% \subsection{Normalization}
 
-\subsection{Normalization}
+% \item Problem, just given a raw score independent of song length or anything else
 
-\item Problem, just given a raw score independent of song length or anything else
-
-\item Attempt to solve: $normalization$ $equation$ $used$
+% \item Attempt to solve: $normalization$ $equation$ $used$
 
 % \subsection{Clustering}
 
