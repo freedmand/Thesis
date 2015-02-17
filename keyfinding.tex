@@ -22,6 +22,23 @@ TPS does not take significantly longer to compute than the Harte metric and is g
 
 \subsubsection{Key Finding Using Tonal Pitch Step}
 
-One pitfall of TPS is that it requires advance knowledge of the key signature over which chords are being compared. Given a sequence of chords $s$ this factor can be estimated by finding the key $k$ that maximizes the sum of the TPS distance of every chord in $s$ against the chord describing the key. Calling the algorithm $K_e$, this can be expressed \[ K_e(s) = \max_k \sum_c^s C_d(c,k,k) \] where $k$ iterates through all 24 combinations of key signature root and mode, and the chord describing $k$ is constructed as having the root of $k$ and the quality corresponding to the mode.
+One pitfall of TPS is that it requires advance knowledge of the key signature over which chords are being compared. Given a sequence of chords $s$ this factor can be estimated by finding the key $k$ that maximizes the sum of the TPS distance of every chord in $s$ against the chord describing the key. Calling the algorithm $K_e$, key finding can be expressed \[ K_e(s) = \max_k \sum_c^s C_d(c,one(k),k) \] where $k$ iterates through all 24 combinations of key signature root and mode, and the function $one$ returns the chord describing the given key with the root of $k$ and the quality corresponding to the key's mode.
 
-In their paper \textit{Tonal Pitch Step Distance}\cite{de2008tonal}, where this algorithm was proposed, the authors found that this simple formula produced many false positives, and modified the algorithm for use with the Western music they were testing as follows:
+In the paper \textit{Comparing Harmonic Similarity Measures}\cite{de2010comparing}, where this algorithm was proposed, the authors found that this formula produced many false positives, and accordingly modified the algorithm for use with the Western music they were testing to incorporate information about the $IV$, $V$, and $vi$ chords of the tested key (in major modes; in minor modes, this is expressed as the $iv$, $V$, and $VI$ chords). This additional information, the authors found, gave enough data about the salient harmonies in a key to have an accuracy rate of $88.8\%$ over the corpus of music tested. Functions to derive these chords are based on a root and mode of a key signature. Given a function $chord$ that constructs a chord with a given root and mode, these functions are as follows:
+
+\begin{align*}
+one(root,mode)  &= chord(root,mode) \\
+four(root,mode) &= chord((root+5) \mod 12, mode) \\
+five(root,mode) &= chord((root+7) \mod 12, \text{major}) \\
+six(root,mode) &= \begin{cases} chord((root+9) \mod 12, \text{minor}) &\text{if }mode = \text{major} \\ chord((root+8) \mod 12, \text{major}) &\text{if }mode = \text{minor} \end{cases} \\
+\end{align*}
+
+Let $rank$ denote the rank function that returns the ranking of an element in a list or sequence. The rank corresponds to the number of elements below that one, such that $rank(1, [2,3,1]) = 0$, $rank(2, [2,3,1]) = 1$, and $rank(3, [2,3,1]) = 2$. $r$ is a function that takes in a sequence, one of the key-to-chord functions ($\{one, four, five, six\}$), and the key being tested. It then returns the ranking of the key being tested out of all possible keys' summed TPS distance between every chord in $s$ against the key-to-chord function of the key, as follows:
+
+\[ r(s,{c_f},k_0) = rank(k_0, \{k : \sum_c^s C_d(c,{c_f}(k),k)\}) \]
+
+The revised key finding algorithm takes a summation of $r$ calculations involving every key-to-chord function, with an emphasis on $one$, and incentivizes matching first and final chords with the key, returning the key that satisfies:
+
+\[ K_e(s) = \min_{k_0}\left( 4 \cdot r(s,one,k_0) + r(s,four,k_0) + r(s,five,k_0) + r(s,six,k_0) + \begin{cases} -4 &\text{if the first chord of }s\text{ matches }k_0\text{, and} \\ -4 &\text{if the last chord of }s\text{ matches }k_0 \end{cases} \right) \]
+
+In my implementation, a chord was determined \textit{matching} if its raw TPS score (0.0-13.0) was at most 2.0 when compared with $one(k_0)$.
