@@ -75,7 +75,7 @@ The matrix is constructed with an empty first row and column (represented with a
  The numbers colored blue show the elements that were used in the path to the maximal score, 20, colored red. The path can be backtracked using arrows:
  
  \[
-\begin{pmatrix} & - & Cmaj & Fmaj & Cmaj & Gmaj & Fmaj & Cmaj & Gmaj & Dmin & Cmaj & \\ - & 0 & \color{blue}0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \\ Fmaj & 0 & 0 & \color{blue}\nwarrow & 0 & 0 & 4 & 0 & 0 & 0 & 0 & \\ Cmaj & 0 & 4 & 0 & \color{blue}\nwarrow & 4 & 0 & 8 & 4 & 0 & 4 & \\ Dmin & 0 & 0 & 1 & \color{blue}\uparrow & 5 & 1 & 4 & 5 & 8 & 4 & \\ Gmaj & 0 & 0 & 0 & 0 & \color{blue}\nwarrow & 4 & 0 & 8 & 4 & 5 & \\ Fmaj & 0 & 0 & 4 & 0 & 4 & \color{blue}{\nwarrow} & 8 & 4 & 5 & 1 & \\ Cmaj & 0 & 4 & 0 & 8 & 4 & 8 & \color{blue}{\nwarrow} & \color{blue}{\leftarrow} & 8 & 9 & \\ Dmin & 0 & 0 & 1 & 4 & 5 & 4 & 12 & 13 & \color{blue}{\nwarrow} & 12 & \\ Cmaj & 0 & 4 & 0 & 5 & 1 & 2 & 8 & 9 & 12 & \color{red}{\nwarrow} & \\ Fmaj & 0 & 0 & 8 & 4 & 2 & 5 & 4 & 5 & 8 & 16 & \\ \end{pmatrix}
+\begin{pmatrix} & - & Cmaj & Fmaj & Cmaj & Gmaj & Fmaj & Cmaj & Gmaj & Dmin & Cmaj & \\ - & 0 & \color{blue}0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ Fmaj & 0 & 0 & \color{blue}\nwarrow & 0 & 0 & 4 & 0 & 0 & 0 & 0\\ Cmaj & 0 & 4 & 0 & \color{blue}\nwarrow & 4 & 0 & 8 & 4 & 0 & 4\\ Dmin & 0 & 0 & 1 & \color{blue}\uparrow & 5 & 1 & 4 & 5 & 8 & 4\\ Gmaj & 0 & 0 & 0 & 0 & \color{blue}\nwarrow & 4 & 0 & 8 & 4 & 5\\ Fmaj & 0 & 0 & 4 & 0 & 4 & \color{blue}{\nwarrow} & 8 & 4 & 5 & 1\\ Cmaj & 0 & 4 & 0 & 8 & 4 & 8 & \color{blue}{\nwarrow} & \color{blue}{\leftarrow} & 8 & 9\\ Dmin & 0 & 0 & 1 & 4 & 5 & 4 & 12 & 13 & \color{blue}{\nwarrow} & 12\\ Cmaj & 0 & 4 & 0 & 5 & 1 & 2 & 8 & 9 & 12 & \color{red}{\nwarrow}\\ Fmaj & 0 & 0 & 8 & 4 & 2 & 5 & 4 & 5 & 8 & 16\\ \end{pmatrix}
  \]
 
 Enumerating the path from the red arrow results in the following sequence of arrows\[ [\nwarrow, \nwarrow, \leftarrow, \nwarrow, \nwarrow, \nwarrow, \uparrow, \nwarrow, \nwarrow] \]
@@ -83,7 +83,15 @@ which can be applied to a bijection \[ operationFromArrow(arrow) = \begin{cases}
 and reversed to produce the sequence:
 \[ [substitution, substitution, insertion, substitution, substition, substitution, deletion, substitution, substitution] \]
 
+Starting with the second element of $a$
 
+{\centering
+\begin{tabular}{cccccccc}
+\makebox[0.5cm]{$F$} & \makebox[0.5cm]{$C$} & \makebox[0.5cm]{*} & \makebox[0.5cm]{$G$} & \makebox[0.5cm]{$F$} & \makebox[0.5cm]{$C$} & \makebox[0.5cm]{$G$} & \makebox[0.5cm]{$Dm$} & \makebox[0.5cm]{$C$} \\
+\makebox[0.5cm]{$|$} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{Ins} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{Del} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{$|$} \\
+\makebox[0.5cm]{$F$} & \makebox[0.5cm]{$C$} & \makebox[0.5cm]{$Dm$} & \makebox[0.5cm]{$G$} & \makebox[0.5cm]{$F$} & \makebox[0.5cm]{$C$} & \makebox[0.5cm]{*} & \makebox[0.5cm]{$Dm$} & \makebox[0.5cm]{$C$} \\
+\end{tabular}
+}
 
 % C, F, C, *,  G, F, C, G,  Dm, C
 %   |  |  ins |  |  |  del |   |
