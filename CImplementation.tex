@@ -4,7 +4,7 @@ This chapter discusses in brief the manner in which I implemented my code. The f
 
 \section{Using the chord alphabet}
 
-\subsection{Integer representation of chords}
+\subsection{Integer representation of chords} \label{intrep}
 
 The Smith-Waterman algorithm is typically used in bioinformatic applications in which the alphabet is restricted to DNA or protein characters. To use an alphabet that contains all the chord symbols, a bijective function can be established between every type of chord and a unique 16 bit integer. Recall a chord can be described with the following grammar:
 \begin{align*}
@@ -104,13 +104,21 @@ where \texttt{b111111111111} refers to the binary bitmask of all 1's for 12 plac
 
 Cleverness with representing chords and harmonies as integers allows effective methods to be constructed with simple bitwise operations and bitmasks.
 
-\section{Smith-Waterman MIPS Implementation}
+\section{Smith-Waterman SIMD Implementation}
 
-\item Used BU implementation, extreme speed results, but only for DNA and Protein sequences, the usual use case of Smith-Waterman
+\subsection{Initial implementations}
 
-\item Optimized implementation for use with chord alphabet
+To get my ideas off the ground, I initially implemented the Smith-Waterman algorithm for use with chords in Python, using high-level data types rather than integers to represent chords and calculating chord distances on the fly rather than pre-populating a distance matrix.
 
-\item Initialize distance matrix, extremely fast
+This implementation was effective for rapid prototyping, developing a deeper understanding of the algorithm, and being able to quickly add features like matrix output harnessing the power of Python's external libraries. Unfortunately, the code was extremely slow, taking in the ballpark of 4 seconds to compare two songs with around 150 chords each using adaptations of the simple equality chord distance metric. This speed compares with another paper that details implementation of a chord progression distance comparison based off of Smith-Waterman that had a runtime of 2-9 days to compare 5000 songs\cite{de2010comparing}. A limitation in the current research of chord sequence alignment systems (CSAS) is the slow runtime.
+
+I attempted to improve the runtime by reimplementing the algorithm in its entirety in C, using bit representations of chords and precomputing distance matrices, achieving a speed increase of about 130x from the Python implementation.
+
+\subsection{Adapting an external C implementation}
+
+To attempt to increase the speed of the Smith-Waterman algorithm even more, such that it would not be an issue, I adapted a Smith-Waterman C implementation that uses Single-Instruction, Multiple-Data (SIMD) parallel computing instructions for use with the chord alphabet\cite{Zhao_2013}\footnote{https://github.com/mengyao/Complete-Striped-Smith-Waterman-Library}. SIMD instructions, which almost all modern computer architectures have, operate on vectors of small data in parallel by representing the vectors as single integers. For instance, two 128-bit integers containing 16 8-bit integers can be operated on simultaneously to achieve tasks like adding all 16 of the 8-bit integers within each 128-bit integer in a single computer instruction.
+
+The SIMD Smith-Waterman algorithm uses advances in Smith-Waterman calculations\cite{chao1992aligning} in combination with SIMD instructions that can massively parallelize the algorithm at no additional computational cost. A problem I encountered was that this particularly SIMD implementation was only attuned for 8-bit integers that could represent the alphabets of DNA sequences and protein sequences. I modified the source code to support the 16-bit representation I constructed of chords detailed in section~\ref{intrep} while preserving the runtime of the algorithm, facilitating the use of the SIMD Smith-Waterman algorithm to my chord progressions. To my knowledge, this is the fastest implementation of chord sequence alignment that currently exists. The runtime of this adapted algorithm compared with the initial Python implementation has a speed-up of over 113,000x.
 
 \subsection{Speed considerations}
 
