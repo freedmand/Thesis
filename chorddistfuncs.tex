@@ -26,6 +26,12 @@ $V$ is a function that takes a quality and returns the 5th interval in the chord
 
 \subsection{Simple equality test}
 
+This is the most basic implementation of a distance metric. Essentially, it tests whether two chords are equal, returning $1.0$ if so and $0.0$ otherwise. Equality can be tested in multiple ways, but exact equality tests first if both chords are \textbf{nochord} and returns $1.0$ should that check out. Otherwise, it returns whether the root, quality, and bass of the two chords are identical. It can be expressed:
+
+\[ e_s(c_1,c_2) = \begin{cases} 1.0 & \text{if }(nochord(c_1) \land nochord(c_2)) \lor (root(c_1) = root(c_2) \land quality(c_1) = quality(c_2)) \land bass(c_1) = bass(c_2) \\ 0.0 & \text{otherwise} \end{cases} \]
+
+There are other  At its simplest it has the following form
+
 \subsection{Harte Distance Metric}
 
 \subsection{Tonal Pitch Step}
