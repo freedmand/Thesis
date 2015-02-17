@@ -32,7 +32,7 @@ Essentially, $\rho$ takes into account the distance away from the correct rankin
 
 Let $rank(D,v)$ return the $ranking$ of all the pairwise comparisons in the dataset $D$ for a given set of variables $v$. The ground-truth McGill dataset, $D({McGill}_{g})$, and the extracted McGill dataset, $D({McGill}_{e})$ can be compared by calculating \[ \rho(rank(D({McGill}_{g}),v), rank(D({McGill}_{e}),v)) \] or \[ \tau(rank(D({McGill}_{g}),v), rank(D({McGill}_{e}),v)) \] for a given $v$.
 
-The results of this comparison indicate whether there is a \textit{monotonic} relationship between the two sets of data; that is, how the rankings of all the pairwise comparisons of all the songs in the datasets compare, and how strong the correlation is. Higher \rho and \tau values mean that the Smith-Waterman evaluation compensates well for errors in chord extraction compared to a ground-truth dataset.
+The results of this comparison indicate whether there is a \textit{monotonic} relationship between the two sets of data; that is, how the rankings of all the pairwise comparisons of all the songs in the datasets compare, and how strong the correlation is. Higher $\rho$ and $\tau$ values mean that the Smith-Waterman evaluation compensates well for errors in chord extraction compared to a ground-truth dataset.
 
 \subsubsection{Applying the Basin-Hopping algorithm}
 
