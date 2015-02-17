@@ -39,6 +39,6 @@ Let $rank$ denote the rank function that returns the ranking of an element in a 
 
 The revised key finding algorithm takes a summation of $r$ calculations involving every key-to-chord function, with an emphasis on $one$, and incentivizes matching first and final chords with the key, returning the key that satisfies:
 
-\[ K_e(s) = \min_{k_0}\left( 4 \cdot r(s,one,k_0) + r(s,four,k_0) + r(s,five,k_0) + r(s,six,k_0) + \begin{cases} -4 &\text{if the first chord of }s\text{ matches }k_0\text{, and} \\ -4 &\text{if the last chord of }s\text{ matches }k_0 \end{cases} \right) \]
+\[ K_e(s) = \min_{k_0}\left( 4 \cdot r(s,one,k_0) + r(s,four,k_0) + r(s,five,k_0) + r(s,six,k_0) +\\ \hspace{2cm} \begin{cases} -4 &\text{if the first chord of }s\text{ matches }k_0\text{, and} \\ -4 &\text{if the last chord of }s\text{ matches }k_0 \end{cases} \right) \]
 
 In my implementation, a chord was determined \textit{matching} if its raw TPS score (0.0-13.0) was at most 2.0 when compared with $one(k_0)$.
