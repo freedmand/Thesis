@@ -54,7 +54,9 @@ H(0,j) &= 0, 0 \leq j \leq n \\
 Subsequently, the matrix is traversed from the top-left across rows to the bottom-right, building off of previous elements with a recurrence relation as follows:
 \[ H(i,j) = \hbox{max} \begin{cases} 0 \\ H(i-1,j-1)+S(a_i,b_j) \\ \hbox{max}_{k \geq 1} \left\{ H(i-k,j)+W(k) \right\} \\ \hbox{max}_{l \geq 1}\left\{ H(i, j-l)+W(l)) \right\} \end{cases}  \]
 
-The maximal element of the resulting matrix, $\max H$, defines the Smith-Waterman score, the maximum score within any two localized regions between two sequences based on the cost of transformation and gap penalties. This localized region can be thought of as two sliding windows, one for each song, similar to the approach in the n-grams chord progression comparisons, but for this approach each window can be of arbitrary size and the combination of sizes and positions that maximizes the score is chosen.
+The maximal element of the resulting matrix, $\max H$, defines the Smith-Waterman score ($SW$), the maximum score within any two localized regions between two sequences based on the cost of transformation and gap penalties. This localized region can be thought of as two sliding windows, one for each song, similar to the approach in the n-grams chord progression comparisons, but for this approach each window can be of arbitrary size and the combination of sizes and positions that maximizes the score is chosen.
+
+\subsubsection{Example}
 
 To retrieve positional information from a completed $H$ matrix, it is helpful to look at an example of the Smith-Waterman algorithm in action. Let the following chord progressions be represented as sequences $a$ and $b$:
 
@@ -95,9 +97,19 @@ Like the example in minimum edit distance, both sequences are aligned with one a
 \end{tabular}
 }
 
-Smith-Waterman is useful in the context of comparing chord progressions as it has mechanisms to deal well with inexact data, using different gap costs and chord distance substitution functions that compensate for small errors. Both the Harte distance metric and TPS can be easily used as a substitution function.
+\subsubsection{Use as a Chord Progression Similarity Measure}
 
-There are downsides to the Smith-Waterman algorithm. It can only be used to extract one optimal local alignment, and the score returned reflects only that local alignment, whereas n-grams comparison does well with multiple like regions of local similarity. There are adjustments to the algorithm to return multiple good alignments, but they prove computationally expensive. This paper focuses on only returning one good alignment. Another difficulty is that of comparing scores from different Smith-Waterman results on different data. Normalization measures will be discussed later in the paper CITE.
+Smith-Waterman is useful in the context of comparing chord progressions as it has mechanisms to deal well with inexact data, using different gap costs and chord distance substitution functions that compensate for small errors. Both the Harte distance metric and TPS can be easily used as a substitution function. For a given distance function $C_d$, gap costs ${gap}_{open}$ and ${gap}_{extension}$, the Smith-Waterman algorithm is: \[ \max_k^{12} SW(c1, t_k({c2}), C_d, W_i) \], where $C_d$ corresponds to the $S$ substitution cost function in the Smith-Waterman algorithm and $W_i$ the gap penalty function: \[ W(i) = \begin{cases} -{gap}_{open} - {gap}_{extension} \cdot (i - 1) &\text{if }i >= 1 \\ 0 &\text{if }i = 0 \end{cases} \] Essentially, the score that is returned is the maximum of all twelve transpositions of one sequence relative to the other.
+
+Because of all its advantages, the Smith-Waterman algorithm will be used to compare chord progressions in this paper. There are downsides to the Smith-Waterman algorithm. It can only be used to extract one optimal local alignment, and the score returned reflects only that local alignment, whereas n-grams comparison does well with multiple like regions of local similarity. There are adjustments to the algorithm to return multiple good alignments, but they prove computationally expensive. This paper focuses on only returning one good alignment. Another difficulty is that of comparing scores from different Smith-Waterman results on different data.
+
+\subsubsection{Normalization}
+
+\[ S_N = \frac{S}{l + N} \] where $S$ is the raw score, $l$ the sum of sequence lengths $n1$ and $n2$, and $N$ a normalization parameter constant \cite{breimer2002learning}
+
+
+
+Normalization measures will be discussed later in the paper CITE.
 
 % % C, F, C, *,  G, F, C, G,  Dm, C
 % %   |  |  ins |  |  |  del |   |
