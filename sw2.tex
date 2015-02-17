@@ -2,7 +2,7 @@ Another measure to normalize the Smith-Waterman score is
 \[ SW_{norm}(c1,c2)=\frac{SW(c1,c2)}{\max [SW(c1,c1), SW(c2,c2)]} \]
 which involves running the Smith-Waterman algorithm over chord progressions against themselves. This returns the score of identity in the distance metric multiplied by the length of the sequence being tested, which has a direct linear correlation with sequence length. Essentially, this is linearly equivalent to a normalization by dividing by the maximal length of the sequences being tested and returns values from 0.0 to 1.0.
 
-The only normalization measures considered in this paper are \textit{raw score} and this measure I call \textit{SW_{norm}}.
+The only normalization measures considered in this paper are \textit{raw score} and this measure I call $SW_{norm}$.
 
 % % C, F, C, *,  G, F, C, G,  Dm, C
 % %   |  |  ins |  |  |  del |   |
