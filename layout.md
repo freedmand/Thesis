@@ -31,6 +31,7 @@ ngram2.tex
 figures/ngramdist/ngramdist.png
 chordprogcomp2.tex
 figures/swplot/swplot.png
+sw2.tex
 DistanceFunction.tex
 CImplementation.tex
 InitialResults.tex
