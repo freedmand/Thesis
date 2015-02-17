@@ -14,62 +14,6 @@ This section details a number of experiments run on the data. To compare chord p
 \text{Chord Distance Subtraction Factor } (m_s) && \{0, 30\} \\
 \end{align*}
 
-\section{Full connected pairwise computation}
+\section{Fully connected pairwise corpus evaluation}
 
-\subsection{Clustering}
-
-\subsection{Visualization}
-
-\subsection{Ranking Fully Connected Pairwise Comparisons}
-
-\subsection{Ranking Random N-Gram Search}
-
-\subsection{Key-Finding Accuracy}
-
-\section{Smith-Waterman Results}
-
-\subsection{Normalization}
-
-\item Problem, just given a raw score independent of song length or anything else
-
-\item Attempt to solve: $normalization$ $equation$ $used$
-
-\subsection{Clustering}
-
-\item Tried out using graph clustering algorithm
-
-\item Future: try k-means
-
-\section{Visualization}
-
-\subsection{Motivation}
-
-\item Given over 100 pairwise (triangle) number comparisons between sets of songs, it is important to have a useful means of visualizing the data
-
-\item Initially tried using Graphos and Circos and other graphing libraries
-
-\item Demanded a level of interactivity unachievable with other programs
-
-\subsection{Using D3.js}
-
-D3, a Javascript library, if used to create the visualization. All songs are displayed as radial nodes around a circle, and pairwise connections as edges.
-
-\item Using popular javascript graphing library, can construct a visualization based on hierarchical edge bundling, as used in other modern graphing libraries (curved edges using tension factors)
-
-\item Can add interactivity using web server
-
-\subsection{Using Twistd webserver}
-
-\item Facile, easy use web server all in Python. Link C libraries to Python and have a rapid coding environment that has fast native C-code at its base
-
-\item Can compare align results in a visual interface based on reconstructing the aligned data
-
-\subsection{Audio playback}
-
-\item Audio transposition problem, and solution using fewest localized transpositions
-
-\item Following along using popcorn.js
-
-\subsection{Public implementation}
-
-\item Webserver available at chordmatch.com
+This is the primary experiment of this paper in which, for a given database $D$ of $n_d$ songs, the Smith-Waterman algorith is evaluated for every pairwise combination of two songs, resulting in \[ \frac{n_d (n_d - 1)}{2} \] comparisons (essentially the $n_d - 1$ triangle number). For each pairwise comparison, all 12 transpositions of one song relative to the other are calculated and the maximal comparison is chosen. For a visualization of the fully connected pairwise evaluation of the National Anthems dataset, see figure~\ref{fig:country_chord_graph}.
