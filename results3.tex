@@ -3,11 +3,57 @@
 
 One natural experiment after obtaining data corresponding to all the pairwise combinations of songs in a dataset, is to attempt clustering. I used the Markov Cluster Algorithm (MCL)\footnote{http://micans.org/mcl/} with custom-tuned parameters to attempt to find groups of Billboard 2014 songs that were connected well with one another. After some experimentation with parameters, the largest cluster result returned contained:\\
 
-\{\textit{Call Me Maybe}\text{ by Carly Rae Jepsen}, \textit{Heart Attack}\text{ by Demi Lovato}, \textit{Whistle}\text{ by FloRide}, \textit{Cruise}\text{ by Florida Georgia Line}, \textit{Stereo Hearts ft. Adam Levine}\text{ by Gym Class Heroes}, \textit{The Edge of Glory}\text{ by Lady Gaga}, \textit{Live While We're Young}\text{ by One Direction}, \textit{Try}\text{ by P!nk}, and \textit{If I Die Young}\text{ by The Band Perry}\}
+\{ \textit{Call Me Maybe} by Carly Rae Jepsen, \textit{Heart Attack} by Demi Lovato, \textit{Whistle} by FloRida, \textit{Cruise} by Florida Georgia Line, \textit{Stereo Hearts ft. Adam Levine} by Gym Class Heroes, \textit{The Edge of Glory} by Lady Gaga, \textit{Live While We're Young} by One Direction, \textit{Try} by P!nk, and \textit{If I Die Young} by The Band Perry\} \\
 
-\subsection{Visualization}
+all songs that were manually verified to have similar chordal content. One problem with MCL is that not all songs with that progression were included and different sets of parameters resulted in drastically different lists of songs. Outside of the first song, there was almost always a steep decline in cluster size to 1 or 2 elements. In future experimentation I would like to try \textit{k-means} clustering and try to derive a notion of harmonic uniqueness.
+
+\section{Global optimization comparing ground-truth and extracted chord data}
+
+\subsection{Overview}
+
+The McGill dataset contains ground-truth annotations for which I was able to find the corresponding audio file and analyze extracted chord annotations using Chordino for 529 of the songs. This allows comparison of extracted chord progressions with their corresponding ground-truth annotations. Let $D({McGill}_{g})$ correspond to the ground-truth annotation dataset and $D({McGill}_{e})$ correspond to the extracted annotation dataset.
+
+The goal, and primary result of this paper, is a means of comparing the performance of $D({McGill}_{g})$ with $D({McGill}_{e})$. The next few sections detail my approach.
 
 \subsection{Ranking Fully Connected Pairwise Comparisons}
+
+\subsubsection{Ranking of a sequence}
+
+Recall the \text{ranking} of a sequence is a mapping of every element of the sequence to its position in the sequence. For instance, $ranking([5,2,3]) = [3,1,2]$, since 5 is the 3rd element of the list in order, 2 is the 1st element, and 3 is the 2nd element. In the case of ties, half numbers are used at the midpoint of the ties, such that $ranking([1,2,3,3,4])=[1,2,3.5,3.5,5]$ and $ranking([1,2,3,3,3,4])=[1,2,4,4,4,6]$.
+
+\subsubsection{Metrics for evaluating the similarity between two rankings}
+
+To compare two identically sized ranked sequences $s1$ and $s2$ of length $n$, there are two primary metrics used. \textit{Spearman's rho}\cite{diaconis1977spearman} ($\rho$) and \textit{Kendall's tau} ($\tau$) where
+\[ \rho(s1,s2) = {1 - \frac {6 \sum_i^n (s1_i - s2_i)^2}{n(n^2 - 1)}} \] and \[ \tau(s1,s2) = \frac{(\text{number of identically ranked pairs}) - (\text{number of non-identically matched pairs})}{\frac{1}{2} n (n-1)} \]
+
+Essentially, $\rho$ takes into account the distance away from the correct ranking a discordant pair is, while $\tau$ factors in the number of inversions needed to correctly swap the sequence back into place. Both return values from -1.0 to 1.0, with 1.0 indicating a perfect positive correlation, -1.0 a perfect negative correlation, and 0.0 no correlation.
+
+\subsubsection{Applying ranking metrics to the McGill datasets}
+
+Let $rank(D,v)$ return the $ranking$ of all the pairwise comparisons in the dataset $D$ for a given set of variables $v$. The ground-truth McGill dataset, $D({McGill}_{g})$, and the extracted McGill dataset, $D({McGill}_{e})$ can be compared by calculating \[ \rho(rank(D({McGill}_{g}),v), rank(D({McGill}_{e}),v)) \] or \[ \tau(rank(D({McGill}_{g}),v), rank(D({McGill}_{e}),v)) \] for a given $v$.
+
+The results of this comparison indicate whether there is a \textit{monotonic} relationship between the two sets of data; that is, how the rankings of all the pairwise comparisons of all the songs in the datasets compare, and how strong the correlation is. Higher \rho and \tau values mean that the Smith-Waterman evaluation compensates well for errors in chord extraction compared to a ground-truth dataset.
+
+\subsubsection{Applying the Basin-Hopping algorithm}
+
+The basin-hopping algorithm\cite{wales1997global} is a global optimization technique that can be used to \textit{stochastically}, or randomly, search through values of $v$, the variables inputted into the Smith-Waterman algorithm, searching based on \textit{temperature}, or rate of change of random steps, and increasing step sizes. Basin-hopping gets its name since it search local minima, or basins, and then ``hops'' out and searches elsewhere. It is proven to be effective for picking out satisfactory choices of many unknown variables for complex computations, perfect for optimizing the ranking correlation coefficients.
+
+I ran a Python program that performs basin-hopping over 1,000 iterations for the ranges of the variables, calculating \[\rho(rank(D({McGill}_{g}),v), rank(D({McGill}_{e}),v))\] for each result and attempting to establish a set of variables with maximal rank. Each iteration took over 51 seconds to run, resulting in a total runtime of 13.5 hours. Though this computation time is expensive it would be a factor of at least 100x slower without the optimized SIMD Smith-Waterman implementation in C.
+
+\subsubsection{Results}
+
+                       & \hspace{1cm} & \textbf{Values} \\
+\text{Normalization } (norm)                    && \{\textit{raw score},{SW}_{norm}\} \\
+\text{Gap open cost } ({gap}_{open})                    && [0-128] \\
+\text{Gap extension cost } ({gap}_{ext})                && [0-128] \\
+\text{Chord Distance Metric } (C_d)            && \{Harte, TPS\} \\
+\text{Chord Distance Multiplier } (m_x)       && \{1, 30\} \\
+\text{Chord Distance Subtraction Factor } (m_s) && \{0, 30\} \\
+\end{align*}
+
+The set of variables that optimized the rank correlation $\rho$ was \[ \{norm=\textit{raw score}, C_d=Harte, {gap}_{open}=0, {gap}_{ext}=95, m_x=5, m_s=0\} \] with a $\rho$ score of 0.761642, which corresponds with a p-value of $1.0232365505\times 10^{-26317}$, or probability that there is not such a correlation. This result is extremely solid and shows a strong monotonic relationship. The $\tau$ score of this set of variables is $0.589671$ with a p-value of $1.5104 \times 10^{-23577}$. These results are charted in figures
+
+
 
 \subsection{Ranking Random N-Gram Search}
 
@@ -21,42 +67,42 @@ One natural experiment after obtaining data corresponding to all the pairwise co
 
 \item Attempt to solve: $normalization$ $equation$ $used$
 
-\subsection{Clustering}
+% \subsection{Clustering}
 
-\item Tried out using graph clustering algorithm
+% \item Tried out using graph clustering algorithm
 
-\item Future: try k-means
+% \item Future: try k-means
 
-\section{Visualization}
+% \section{Visualization}
 
-\subsection{Motivation}
+% \subsection{Motivation}
 
-\item Given over 100 pairwise (triangle) number comparisons between sets of songs, it is important to have a useful means of visualizing the data
+% \item Given over 100 pairwise (triangle) number comparisons between sets of songs, it is important to have a useful means of visualizing the data
 
-\item Initially tried using Graphos and Circos and other graphing libraries
+% \item Initially tried using Graphos and Circos and other graphing libraries
 
-\item Demanded a level of interactivity unachievable with other programs
+% \item Demanded a level of interactivity unachievable with other programs
 
-\subsection{Using D3.js}
+% \subsection{Using D3.js}
 
-D3, a Javascript library, if used to create the visualization. All songs are displayed as radial nodes around a circle, and pairwise connections as edges.
+% D3, a Javascript library, if used to create the visualization. All songs are displayed as radial nodes around a circle, and pairwise connections as edges.
 
-\item Using popular javascript graphing library, can construct a visualization based on hierarchical edge bundling, as used in other modern graphing libraries (curved edges using tension factors)
+% \item Using popular javascript graphing library, can construct a visualization based on hierarchical edge bundling, as used in other modern graphing libraries (curved edges using tension factors)
 
-\item Can add interactivity using web server
+% \item Can add interactivity using web server
 
-\subsection{Using Twistd webserver}
+% \subsection{Using Twistd webserver}
 
-\item Facile, easy use web server all in Python. Link C libraries to Python and have a rapid coding environment that has fast native C-code at its base
+% \item Facile, easy use web server all in Python. Link C libraries to Python and have a rapid coding environment that has fast native C-code at its base
 
-\item Can compare align results in a visual interface based on reconstructing the aligned data
+% \item Can compare align results in a visual interface based on reconstructing the aligned data
 
-\subsection{Audio playback}
+% \subsection{Audio playback}
 
-\item Audio transposition problem, and solution using fewest localized transpositions
+% \item Audio transposition problem, and solution using fewest localized transpositions
 
-\item Following along using popcorn.js
+% \item Following along using popcorn.js
 
-\subsection{Public implementation}
+% \subsection{Public implementation}
 
-\item Webserver available at chordmatch.com
+% \item Webserver available at chordmatch.com
