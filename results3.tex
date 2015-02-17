@@ -1,0 +1,62 @@
+
+\subsection{Clustering}
+
+One natural experiment after obtaining data corresponding to all the pairwise combinations of songs in a dataset, is to attempt clustering. I used the Markov Cluster Algorithm (MCL)\footnote{http://micans.org/mcl/} with custom-tuned parameters to attempt to find groups of Billboard 2014 songs that were connected well with one another. After some experimentation with parameters, the largest cluster result returned contained:\\
+
+\{\textit{Call Me Maybe}\text{ by Carly Rae Jepsen}, \textit{Heart Attack}\text{ by Demi Lovato}, \textit{Whistle}\text{ by FloRide}, \textit{Cruise}\text{ by Florida Georgia Line}, \textit{Stereo Hearts ft. Adam Levine}\text{ by Gym Class Heroes}, \textit{The Edge of Glory}\text{ by Lady Gaga}, \textit{Live While We're Young}\text{ by One Direction}, \textit{Try}\text{ by P!nk}, and \textit{If I Die Young}\text{ by The Band Perry}\}
+
+\subsection{Visualization}
+
+\subsection{Ranking Fully Connected Pairwise Comparisons}
+
+\subsection{Ranking Random N-Gram Search}
+
+\subsection{Key-Finding Accuracy}
+
+\section{Smith-Waterman Results}
+
+\subsection{Normalization}
+
+\item Problem, just given a raw score independent of song length or anything else
+
+\item Attempt to solve: $normalization$ $equation$ $used$
+
+\subsection{Clustering}
+
+\item Tried out using graph clustering algorithm
+
+\item Future: try k-means
+
+\section{Visualization}
+
+\subsection{Motivation}
+
+\item Given over 100 pairwise (triangle) number comparisons between sets of songs, it is important to have a useful means of visualizing the data
+
+\item Initially tried using Graphos and Circos and other graphing libraries
+
+\item Demanded a level of interactivity unachievable with other programs
+
+\subsection{Using D3.js}
+
+D3, a Javascript library, if used to create the visualization. All songs are displayed as radial nodes around a circle, and pairwise connections as edges.
+
+\item Using popular javascript graphing library, can construct a visualization based on hierarchical edge bundling, as used in other modern graphing libraries (curved edges using tension factors)
+
+\item Can add interactivity using web server
+
+\subsection{Using Twistd webserver}
+
+\item Facile, easy use web server all in Python. Link C libraries to Python and have a rapid coding environment that has fast native C-code at its base
+
+\item Can compare align results in a visual interface based on reconstructing the aligned data
+
+\subsection{Audio playback}
+
+\item Audio transposition problem, and solution using fewest localized transpositions
+
+\item Following along using popcorn.js
+
+\subsection{Public implementation}
+
+\item Webserver available at chordmatch.com
