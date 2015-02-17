@@ -38,8 +38,16 @@ Another reasonable implementation is to consider the set of pitch classes of bot
 
 \[ C_d(c_1,c_2) = \begin{cases} 1.0 & \text{if }P_c(c_1) = P_c(c_2) \\ 0.0 & \text{otherwise} \end{cases} \]
 
+These simple equality metrics are useful distance functions for simple implementations and computations and were handy in assessing preliminary results before more detailed distance functions had been implemented.
+
 \subsection{Harte Distance Metric}
 
-This name
+This chord function is presented without a name in Christopher Harte's PhD thesis about extraction of harmony from audio\cite{harte2010towards}, but I use the name "Harte distance metric" to refer to it. The method is deceptively simple but effective, consisting of taking the size of the intersection of both chords' pitch class sets and dividing it by the size of the union of their pitch class sets, as follows:
+
+\[ C_d(c_1, c_2) = \frac{P_c(c_1) \cap P_c(c_2)}{P_c(c_1) \cup P_c(c_2)} \]
+
+Using the Harte distance metric, the score of comparing minor and major chords of the same root (e.g. $C_d(C,Cm)$) and a major chord with its relative minor (e.g. $C_d(C,Am)$) both have the same value of $0.5$. A major chord compared with a major 7th of the same root (e.g. $C_d(C,Cmaj7)$) that contains a superset of the first chord's pitch classes has a score of $0.75$. Comparing chords with identical pitch sets, even if root or bass notes vary (e.g. $C_d(C6, Am7)$ $C_d(C7, C7/Bb)$), results in a perfect score of $1.0$.
+
+This metric has the advantage that it is very versatile and fast, but potentially loses some information about a chord in disregarding distinctions of elements within the chord, instead focusing only on the pitch classes within.
 
 \subsection{Tonal Pitch Step}
