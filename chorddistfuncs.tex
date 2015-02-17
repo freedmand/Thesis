@@ -1,8 +1,8 @@
-\section{Chord Distance Metrics}
+\section{Chord Distance Metrics} \label{chordmet}
 
 \subsection{Considerations}
 
-To begin to compare progressions of chords, it is essential to first have metrics to compare individual chords. Recall that a chord has the following components: \textit{root}, \textit{quality}, \textit{bass}, and \textit{nochord}. There are multiple approaches to comparing two chords. Both chords can be represented as the set of their pitch classes and set operations can be performed to formulate a distance; another approach may emphasize different structures such as the relationship between two chords' root notes and bass notes.
+To begin to compare progressions of chords, it is essential to first have metrics to compare individual chords. Recall that a chord has the following components: \textit{root}, \textit{quality}, \textit{bass}, and \textit{nochord}. There are multiple approaches to comparing two chords. Both chords can be represented as the set of their pitch classes and set operations can be performed to formulate a distance; another approach may emphasize different structures such as the relationship between two chords' $root$ notes and $bass$ notes.
 
 It can be helpful to outline some basic comparisons of chords and describe how the chord metric should perform to outline the utility of a distance function. Assume a chord distance function $C_d$ takes two chords and returns a real number from $0$, indicating no similarity, to $1$, indicating perfect similarity.
 
@@ -16,7 +16,7 @@ $C_d(C7, C7/Bb)$ also can be expected to perform well as both chords describe id
 
 \subsubsection{Notation}
 
-$P_c$ represents all the pitch classes in a given chord or key signature. In the case of a chord, if the \textbf{nochord} boolean is true $P_c$ returns the empty set $\{\}$.
+$P_c$ represents all the pitch classes in a given chord. If the \textbf{nochord} boolean is true this is the empty set ${}$.
 $root$ is a function that returns the pitch class of the root of the given chord.
 $quality$ is a function that returns the qualitative label of a chord that can be used with other functions to extract intervals and other factors.
 $bass$ is a function that returns the pitch class of the bass of the chord.
@@ -62,4 +62,4 @@ Mode &\to \text{Major Minor} \\
 
 Given all possible combinations of a pitch class describing $root$ and $mode$, there are 24 distinct key signatures. It is important to note that the acceptable pitch classes within \textit{relative} keys are identical, such as $C$ major and $A$ minor.
 
-The tonal pitch step algorithm is calculated, with revisions courtesy of \cite{de2008tonal} to only include one key $k$, as \[ C_d(c_1, c_2, k) = i(root(c_1), root(c_2)) + j(c_1, c_2, k) \] where $i$ calculates the \textit{circle-of-fifths} distance between two pitch classes and $j$ is detailed below. The circle-of-fifths (see figure~\ref{fig:circlefifths}) distance describes how many $\pm7$ semitone traversals are needed to reach one note from another. It can be calculated for any two pitches $p1$ and $p2$ as \[i({p1}, {p2}) = \min((({p1} - {p2}) \cdot 7) \mod 12, (({p2} - {p1}) \cdot 7) \mod 12)\] where the difference between ${p1}$ and ${p2}$ is the number of semitones between them.
+The tonal pitch step algorithm is calculated, with revisions courtesy of \cite{de2008tonal} to only include one key, as \[ C_d(c_1, c_2) = i(root(c_1), root(c_2)) + j(c_1, c_2) \] where $i$ calculates the \textit{circle-of-fifths} distance between two pitch classes. The circle-of-fifths (see figure~\ref{fig:circlefifths}) distance describes how many $\pm7$ semitone traversals are needed to reach one note from another. It can be calculated for any two pitches $p1$ and $p2$ as \[i({p1}, {p2}) = \min((({p1} - {p2}) \cdot 7) \mod 12, (({p2} - {p1}) \cdot 7) \mod 12)\] where the difference between ${p1}$ and ${p2}$ is the number of semitones between them.
