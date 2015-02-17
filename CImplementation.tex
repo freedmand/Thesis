@@ -1,8 +1,10 @@
 \chapter{Code Implementation}
 
-\section{Smith-Waterman}
+This chapter discusses in brief the manner in which I implemented my code. The full project is over 6,000 lines of C, Python, HTML, and Javascript code. This chapter will only overview notable features of the code.
 
-\subsection{Using the chord alphabet}
+\section{Using the chord alphabet}
+
+\subsection{Integer representation of chords}
 
 The Smith-Waterman algorithm is typically used in bioinformatic applications in which the alphabet is restricted to DNA or protein characters. To use an alphabet that contains all the chord symbols, a bijective function can be established between every type of chord and a unique 16 bit integer. Recall a chord can be described with the following grammar:
 \begin{align*}
@@ -64,9 +66,9 @@ function ExtractFeatures(i)
 
 \subsection{Bitwise representation of harmony}
 
-Chord quality can be represented as a 12-bit integer in which each bit corresponds to whether a certain interval is included. This compact representation provides a means for quick computation and allows chord distance computations to be represented
+Chord quality can be represented as a 12-bit integer in which each bit corresponds to whether a certain interval is included. This compact form provides a means for quick computation and allows chord set operations to be expressed with bitwise operators.
 
-, a 12-bit integer can represent harmony in which each bit corresponds to whether a certain interval is included in the chord or not. Since leading 0's are excluded, the representation can start with 1 in the first binary position (right-to-left) to represent the root of the chord. Thus, a concise 12-bit integer representation of harmony consists of a 1 in the first binary position with the following $i$th From right-to-left, the $i$th bit represents whether the interval $i - 1$ (where 0 is the root note) is included in the chord or not (see figure~\ref{fig:qualitytable}). All harmonies used in the program and associated intervals can be seen in figure~\ref{fig:qualitybitstable}.
+Let $i$ be a 12-bit integer representing chord quality in which each bit corresponds to whether a certain interval is included in the chord or not. Since leading 0's are excluded, the representation can start with 1 in the first binary position (right-to-left) to represent the root of the chord and each subsequent binary position $i, 1 \leq i \leq 12$ can represent whether the interval $i$ is included (where 0 is the root note) (see figure~\ref{fig:qualitytable}). All harmonies used in the program and associated intervals can be seen in figure~\ref{fig:qualitybitstable}. Let $h_b$ be the function that extracts the binary mask from a given harmony.
 
 \begin{figure}[h!]
 \centering
@@ -91,9 +93,18 @@ Half-diminished 7th & m7b5      & 1010001001   & 649  \\
 \label{fig:qualitybitstable}
 \end{figure}
 
-\item Cleverness with representing chords and harmonies as integers and allowing simple bitwise operations and bitmasks
+\subsection{Bitwise chord operations}
 
-\subsection{MIPS Implementation}
+Basic chord operations can then be constructed. For instance, to get $P_c(c)$ as a 12-bit integer in which each bit $i$ from right-to-left corresponds to whether $p(i) \in P_c(c)$ one need only construct a bit cycling algorithm
+\begin{verbatim}
+function CycleBits(value, shift)
+  return ((value << shift) | (value >> (12 - shift))) & b111111111111
+\end{verbatim}
+where \texttt{b111111111111} refers to the binary bitmask of all 1's for 12 places, \texttt{<<} and \text{>>} are the bit shift left and right operators, and \texttt{|} and \texttt{&} are the bit operators $and$ and $or$, respectively. $P_c(c)$ can then be calculated: \[ P_c(c) = CycleBits(h_b(quality(c)), p(root(c))) | p(bass(c)) \]
+
+Cleverness with representing chords and harmonies as integers allows effective methods to be constructed with simple bitwise operations and bitmasks.
+
+\section{Smith-Waterman MIPS Implementation}
 
 \item Used BU implementation, extreme speed results, but only for DNA and Protein sequences, the usual use case of Smith-Waterman
 
