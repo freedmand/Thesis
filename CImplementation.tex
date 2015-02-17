@@ -120,12 +120,26 @@ To attempt to increase the speed of the Smith-Waterman algorithm even more, such
 
 The SIMD Smith-Waterman algorithm uses advances in Smith-Waterman calculations\cite{chao1992aligning} in combination with SIMD instructions that can massively parallelize the algorithm at no additional computational cost. A problem I encountered was that this particularly SIMD implementation was only attuned for 8-bit integers that could represent the alphabets of DNA sequences and protein sequences. I modified the source code to support the 16-bit representation I constructed of chords detailed in section~\ref{intrep} while preserving the runtime of the algorithm, facilitating the use of the SIMD Smith-Waterman algorithm to my chord progressions. To my knowledge, this is the fastest implementation of chord sequence alignment that currently exists. The runtime of this adapted algorithm compared with the initial Python implementation has a speed-up of over 113,000x.
 
-\subsection{Speed considerations}
+\section{Dataset Collection}
 
-\item Initially implemented in Python, experience 100,000x speed-up
+\subsubsection{Scraping}
 
-\subsection{Future considerations}
+\textit{Scraping} refers to the task of writing scripts to automatically extract files and download them. What follows is a brief overview of how I collected, or scraped, the datasets I am using in my evaluations.
 
-\item Fast SW extremely useful but also highly restrictive in its compactness and efficiency -- hard to modify
+\subsubsection{File conversion}
 
-\item Adapt using local transpositions
+To convert collected files---which came in a variety of audio formats such as \textit{mp3}, \textit{aac}, and \textit{ogg}, and video formats such as \textit{mp4}---to \textit{wav} files required using the external library \textit{ffmpeg}. Ffmpeg contains a suite of \textit{codecs}, or computer audio wrappers, suitable for converting a wide range of file types to other file types. To feed data into Chordino requires the use of \textit{wav} files, so all input audio files were converted to \textit{wav} for the purpose of chord extraction. I wrote a wrapper to convert files and analyze their chordal content with Chordino in Python.
+
+\subsection{YouTube Extraction}
+
+The Beatles Dataset, consisting of over 180 songs of The Beatles' entire discography, as well as the Billboard 2014 dataset comprising over 200 top billboard charts in the United States were collected from YouTube\footnote{https://www.youtube.com/}. Using the Python extension \textit{youtube_dl}\footnote{https://pypi.python.org/pypi/youtube_dl}, I was able to bulk download videos from external user-created playlists corresponding to the data I wanted to extract. After downloading these files in \textit{mp4} format, I converted them to \textit{wav} files and extracted their chord progressions.
+
+\subsection{Rhapsody}
+
+\textit{Rhapsody}\footnote{https://www.rhapsody.com/} is a popular music streaming service that allows users to listen to a huge database of music for a low monthly fee. Already being a Rhapsody, I used a Python script called \texttt{rapi.py}\footnote{https://github.com/davekilian/rapi/blob/master/rapi.py}, an unofficial Rhapsody API that can be used to download streams given valid login credentials.
+
+The McGill Billboard Project Dataset\cite{BurgoyneEtAl_2011_AnExpeGrouSet}, which consists of a large collection of ground-truth annotations for Billboard charts from 1950 through 1990, does not contain the corresponding audio files that could be used to create extracted annotations for comparison. I wrote a Python program that looks up the title, artist, and duration of the included metadata in the dataset using the Python extension \textit{pyechonest}\footnote{https://github.com/echonest/pyechonest} which queries the Echonest\footnote{http://the.echonest.com/} API, a musical intelligence project that stores a massive amount of musical metadata. Some Echonest results include Rhapsody track ids that can be used to find the corresponding stream on Rhapsody. The Python program, for every successful match to Rhapsody, downloads the corresponding audio file, converts to \textit{wav}, and extracts chord progressions, leading to the creation of the McGill Extracted Dataset.
+
+\subsection{National Anthems}
+
+The National Anthems Dataset was collected from the Wikipedia page "List of national anthems"\footnote{http://en.wikipedia.org/wiki/List_of_national_anthems} which collects open source recordings of national anthems for every country recognized by the United Nations and a few other states and territories not officially recognized. Using Python to parse this web page, I downloaded all the audio files, which were in the \textit{ogg} format, an open-source alternative to mp3.
