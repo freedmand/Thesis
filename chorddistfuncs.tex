@@ -51,3 +51,22 @@ Using the Harte distance metric, the score of comparing minor and major chords o
 This metric has the advantage that it is very versatile and fast, but potentially loses some information about a chord in disregarding distinctions of elements within the chord, instead focusing only on the pitch classes within.
 
 \subsection{Tonal Pitch Step}
+
+Tonal Pitch Step is a distance measure that is grounded in cognitive psychology, algebra, and tonal music theory, proposed by Fred Lerdahl in \cite{lerdahl1988tonal}. The measure is unique from the others in that it takes into account the key of a song, which can be recalled as:
+
+\begin{align*}
+Key &\to Root\ Mode \\
+Root &\to NoteName \\
+Mode &\to \text{Major Minor} \\
+\end{align*}
+
+Given all possible combinations of a pitch class describing $root$ and $mode$, there are 24 distinct key signatures. It is important to note that the acceptable pitch classes within \textit{relative} keys are identical, such as $C$ major and $A$ minor.
+
+The tonal pitch step algorithm is calculated, with revisions courtesy of \cite{de2008tonal} to only include one key, as
+
+\[ C_d(c_1, c_2) = i(root(c_1), root(c_2)) + j(c_1, c_2) \]
+
+where $i$ calculates the \textit{circle-of-fifths} distance between two pitch classes. The circle-of-fifths (see figure~\ref{circlefifths}) distance describes how many $\pm7$ semitone traversals are needed to reach one note from another.
+
+\subsubsection{Key Finding Using Tonal Pitch Step}
+
