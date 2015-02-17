@@ -16,7 +16,7 @@ $C_d(C7, C7/Bb)$ also can be expected to perform well as both chords describe id
 
 \subsubsection{Notation}
 
-$P_c$ all the pitch classes in a chord. If the \textbf{nochord} boolean is true this is the empty set ${}$.
+$P_c$ represents all the pitch classes in a given chord. If the \textbf{nochord} boolean is true this is the empty set ${}$.
 $root$ is a function that returns the pitch class of the root of the given chord.
 $quality$ is a function that returns the qualitative label of a chord that can be used with other functions to extract intervals and other factors.
 $bass$ is a function that returns the pitch class of the bass of the chord.
@@ -28,10 +28,18 @@ $V$ is a function that takes a quality and returns the 5th interval in the chord
 
 This is the most basic implementation of a distance metric. Essentially, it tests whether two chords are equal, returning $1.0$ if so and $0.0$ otherwise. Equality can be tested in multiple ways, but exact equality tests first if both chords are \textbf{nochord} and returns $1.0$ should that check out. Otherwise, it returns whether the root, quality, and bass of the two chords are identical. It can be expressed:
 
-\[ e_s(c_1,c_2) = \begin{cases} 1.0 & \text{if }(nochord(c_1) \land nochord(c_2)) \lor (root(c_1) = root(c_2) \land quality(c_1) = quality(c_2)) \land bass(c_1) = bass(c_2) \\ 0.0 & \text{otherwise} \end{cases} \]
+\[ C_d(c_1,c_2) = \begin{cases} 1.0 & \text{if }(nochord(c_1) \land nochord(c_2)) \lor \\ & \hspace{0.8cm}(root(c_1) = root(c_2) \land quality(c_1) = quality(c_2) \land bass(c_1) = bass(c_2)) \\ 0.0 & \text{otherwise} \end{cases} \]
 
-There are other  At its simplest it has the following form
+There are other ways to test equality. For instance, only root can be considered if one wishes to reduce a chord to its simplest element as follows:
+
+\[ C_d(c_1,c_2) = \begin{cases} 1.0 & \text{if }(nochord(c_1) \land nochord(c_2)) \lor root(c_1) = root(c_2) \\ 0.0 & \text{otherwise} \end{cases} \]
+
+Another reasonable implementation is to consider the set of pitch classes of both chords and whether they are equal. This is expressed:
+
+\[ C_d(c_1,c_2) = \begin{cases} 1.0 & \text{if }P_c(c_1) = P_c(c_2) \\ 0.0 & \text{otherwise} \end{cases} \]
 
 \subsection{Harte Distance Metric}
+
+This name
 
 \subsection{Tonal Pitch Step}
