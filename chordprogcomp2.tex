@@ -97,7 +97,7 @@ Like the example in minimum edit distance, both sequences are aligned with one a
 
 Smith-Waterman is useful in the context of comparing chord progressions as it has mechanisms to deal well with inexact data, using different gap costs and chord distance substitution functions that compensate for small errors. Both the Harte distance metric and TPS can be easily used as a substitution function.
 
-There are downsides in the Smith-Waterman algorithm. It can only be used to extract one optimal local alignment, and the score returned reflects only that local alignment, whereas n-grams comparison does well with multiple like regions of local similarity. There are adjustments to the algorithm to return multiple good alignments, but they prove computationally expensive. This paper focuses on only returning one good alignment. Another difficulty is that of comparing scores from different Smith-Waterman results on different data. Normalization measures will be discussed later in the paper CITE.
+There are downsides to the Smith-Waterman algorithm. It can only be used to extract one optimal local alignment, and the score returned reflects only that local alignment, whereas n-grams comparison does well with multiple like regions of local similarity. There are adjustments to the algorithm to return multiple good alignments, but they prove computationally expensive. This paper focuses on only returning one good alignment. Another difficulty is that of comparing scores from different Smith-Waterman results on different data. Normalization measures will be discussed later in the paper CITE.
 
 % % C, F, C, *,  G, F, C, G,  Dm, C
 % %   |  |  ins |  |  |  del |   |
