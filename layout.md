@@ -23,6 +23,7 @@ FourierContinued2.tex
 ChordIdentification.tex
 ComputationChordExtract.tex
 chorddistfuncs.tex
+keyfinding.tex
 PossibleHarmonicComparisons.tex
 figures/ngram/ngram.png
 ngram2.tex
