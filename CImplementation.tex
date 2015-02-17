@@ -120,6 +120,10 @@ To attempt to increase the speed of the Smith-Waterman algorithm even more, such
 
 The SIMD Smith-Waterman algorithm uses advances in Smith-Waterman calculations\cite{chao1992aligning} in combination with SIMD instructions that can massively parallelize the algorithm at no additional computational cost. A problem I encountered was that this particularly SIMD implementation was only attuned for 8-bit integers that could represent the alphabets of DNA sequences and protein sequences. I modified the source code to support the 16-bit representation I constructed of chords detailed in section~\ref{intrep} while preserving the runtime of the algorithm, facilitating the use of the SIMD Smith-Waterman algorithm to my chord progressions. To my knowledge, this is the fastest implementation of chord sequence alignment that currently exists. The runtime of this adapted algorithm compared with the initial Python implementation has a speed-up of over 113,000x.
 
+\subsection{Rounding Chord Distance Metrics} \label{roundchord}
+
+Chord distance values, in the SIMD implementation of Smith-Waterman, are represented as 8-bit integers; this does not blend out of the box with the floating point data the chord distance metrics proposed in section~\ref{chordmet}. A workable solution is to take the chord distance score $C_d$ and round it to the nearest integer after multiplying it \[ C_{rd} = round(C_d \cdot m_x) \] for some multiplication factor $m_x$. To produce chord distance scores with an expected value below $0$, a subtraction factor $m_s$ can also be introduced: \[ C_{rd} = (round(C_d) \cdot m_x) - m_s \]
+
 \section{Dataset Collection}
 
 \textit{Scraping} refers to the task of writing scripts to automatically extract files and download them. What follows is a brief overview of how I collected, or scraped, the datasets I am using in my evaluations.
