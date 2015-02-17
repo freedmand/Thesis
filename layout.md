@@ -36,6 +36,7 @@ DistanceFunction.tex
 CImplementation.tex
 InitialResults.tex
 figures/country_chord_graph/country_chord_graph.png
+results3.tex
 FurtherTesting.tex
 FutureImprovements.tex
 ReferenceLister.tex
