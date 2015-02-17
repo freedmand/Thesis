@@ -17,7 +17,7 @@ This alignment can be represented as follows:
 {\centering
 \begin{tabular}{cccccccc}
 \makebox[0.5cm]{\texttt{M}} & \makebox[0.5cm]{\texttt{O}} & \makebox[0.5cm]{\texttt{R}} & \makebox[0.5cm]{\texttt{D}} & \makebox[0.5cm]{\texttt{E}} & \makebox[0.5cm]{\texttt{N}} & \makebox[0.5cm]{\texttt{T}} & \makebox[0.5cm]{*} \\
-\makebox[0.5cm]{$|$} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{Del} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{Sub} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{Add} \\
+\makebox[0.5cm]{$|$} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{Del} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{Sub} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{Ins} \\
 \makebox[0.5cm]{\texttt{M}} & \makebox[0.5cm]{\texttt{O}} & \makebox[0.5cm]{*} & \makebox[0.5cm]{\texttt{D}} & \makebox[0.5cm]{\texttt{E}} & \makebox[0.5cm]{\texttt{S}} & \makebox[0.5cm]{\texttt{T}} & \makebox[0.5cm]{\texttt{O}} \\
 \end{tabular}
 }
@@ -59,8 +59,8 @@ The maximal element of the resulting matrix, $\max H$, defines the Smith-Waterma
 To retrieve positional information from a completed $H$ matrix, it is helpful to look at an example of the Smith-Waterman algorithm in action. Let the following chord progressions be represented as sequences $a$ and $b$:
 
 \begin{align*}
-a &= [C, F, C, G, F, C, G, Dm, C] \\
-b &= [F, C, Dm, G, F, C, Dm, C, F] \\
+a &= [F, C, Dm, G, F, C, Dm, C, F] \\
+b &= [C, F, C, G, F, C, G, Dm, C] \\
 \end{align*}
 
 This example uses an application of the simple equality chord distance measure \[C_d(c_1,c_2) = \begin{cases} 4 &\text{if }root(c_1) = root(c_2) \lor (nochord(c_1) \land nochord(c_2) \\ -3 &\text{otherwise} \end{cases} \]
@@ -83,38 +83,44 @@ which can be applied to a bijection \[ operationFromArrow(arrow) = \begin{cases}
 and reversed to produce the sequence:
 \[ [substitution, substitution, insertion, substitution, substition, substitution, deletion, substitution, substitution] \]
 
-Starting with the second element of $a$
+To show the optimal local alignment between both sequences, the appropriate subsections of both sequences need to be extracted. From $a$ this corresponds to the chords whose rows feature blue and red text \[ [F, C, Dm, G, F, C, Dm, C] \] and from $b$ this corresponds to the chords corresponding to the columns that feature blue and red text \[ [F, C, G, F, C, G, Dm, C] \]
+
+Like the example in minimum edit distance, both sequences are aligned with one another. \textit{Substitution} operators are represented with vertical lines between corresponding elements. \text{Insertion} operators indicate a gap in the first sequence (represented with *) and a chord in the second sequence. Finally, \textit{deletion} operators correspond with a gap in the second sequence and a chord in the first sequence. $a$ and $b$ can then be stitched together, or \textit{aligned}, as follows:
 
 {\centering
 \begin{tabular}{ccccccccc}
-\makebox[0.5cm]{$F$} & \makebox[0.5cm]{$C$} & \makebox[0.5cm]{*} & \makebox[0.5cm]{$G$} & \makebox[0.5cm]{$F$} & \makebox[0.5cm]{$C$} & \makebox[0.5cm]{$G$} & \makebox[0.5cm]{$Dm$} & \makebox[0.5cm]{$C$} \\
-\makebox[0.5cm]{$|$} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{Ins} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{Del} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{$|$} \\
 \makebox[0.5cm]{$F$} & \makebox[0.5cm]{$C$} & \makebox[0.5cm]{$Dm$} & \makebox[0.5cm]{$G$} & \makebox[0.5cm]{$F$} & \makebox[0.5cm]{$C$} & \makebox[0.5cm]{*} & \makebox[0.5cm]{$Dm$} & \makebox[0.5cm]{$C$} \\
+\makebox[0.5cm]{$|$} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{Ins} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{Del} & \makebox[0.5cm]{$|$} & \makebox[0.5cm]{$|$} \\
+\makebox[0.5cm]{$F$} & \makebox[0.5cm]{$C$} & \makebox[0.5cm]{*} & \makebox[0.5cm]{$G$} & \makebox[0.5cm]{$F$} & \makebox[0.5cm]{$C$} & \makebox[0.5cm]{$G$} & \makebox[0.5cm]{$Dm$} & \makebox[0.5cm]{$C$} \\
 \end{tabular}
 }
 
-% C, F, C, *,  G, F, C, G,  Dm, C
-%   |  |  ins |  |  |  del |   |
-%   F, C, Dm, G, F, C, *,  Dm, C, F
+Smith-Waterman is useful in the context of comparing chord progressions as it has mechanisms to deal well with inexact data, using different gap costs and chord distance substitution functions that compensate for small errors. Both the Harte distance metric and TPS can be easily used as a substitution function.
+
+There are downsides in the Smith-Waterman algorithm. It can only be used to extract one optimal local alignment, and the score returned reflects only that local alignment, whereas n-grams comparison does well with multiple like regions of local similarity. There are adjustments to the algorithm to return multiple good alignments, but they prove computationally expensive. This paper focuses on only returning one good alignment. Another difficulty is that of comparing scores from different Smith-Waterman results on different data. Normalization measures will be discussed later in the paper CITE.
+
+% % C, F, C, *,  G, F, C, G,  Dm, C
+% %   |  |  ins |  |  |  del |   |
+% %   F, C, Dm, G, F, C, *,  Dm, C, F
 
 
-\item Localized comparison, dynamic programming, find minimum number of required "transformations" and optimal localized slice. Dynamic programming
+% \item Localized comparison, dynamic programming, find minimum number of required "transformations" and optimal localized slice. Dynamic programming
 
-\item Works well with inexact data, can deal with common pitfalls of chord extraction.
+% \item Works well with inexact data, can deal with common pitfalls of chord extraction.
 
-\item Isolates similar substructures.
+% \item Isolates similar substructures.
 
-\item Does not penalize closely related chords, i.e. Em7 and Gmaj
+% \item Does not penalize closely related chords, i.e. Em7 and Gmaj
 
-\item Difficulty in extracting multiple "best" options but good at finding one top contender
+% \item Difficulty in extracting multiple "best" options but good at finding one top contender
 
-\item Difficulty in comparing scores
+% \item Difficulty in comparing scores
 
-\subsection{Example Smith-Waterman Algorithm}
+% \subsection{Example Smith-Waterman Algorithm}
 
-The following example shows how the Smith-Waterman algorithm could be applied to the alphabet of musical chord symbols:
+% The following example shows how the Smith-Waterman algorithm could be applied to the alphabet of musical chord symbols:
 
-This example assumes the following costs:
+% This example assumes the following costs:
 
-If the chord begins on the same root, then add 3 \\
-Otherwise, subtract 4 \\
+% If the chord begins on the same root, then add 3 \\
+% Otherwise, subtract 4 \\
