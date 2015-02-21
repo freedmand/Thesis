@@ -1,0 +1,9 @@
+The Fourier transform can be applied to an audio file using a \textit{sliding
+window} in which the data points are analyzed in chunks. The window is of
+a set size to contain a certain number of data points and traverses the data
+linearly in equal, potentially overlapping steps. The size of the window
+is a balance in precision---the larger the window size the finer the frequency
+resolution; the smaller the window size the more closely note onsets and
+offsets can be detected.
+This can be illustrated with a diagram of spectrograms sampled at different
+window sizes in figure~\ref{fig:fourierspectrogram}.
