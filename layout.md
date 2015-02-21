@@ -18,6 +18,7 @@ figures/rectangle/rectangle.png
 Fourier.tex
 figures/eleanor_rigby/eleanor_rigby.png
 fourier_c2.tex
+figures/fourierspectrogram/fourierspectrogram.png
 FourierContinued.tex
 figures/eleanor_chroma/eleanor_chroma.png
 FourierContinued2.tex
