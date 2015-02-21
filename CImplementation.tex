@@ -130,11 +130,11 @@ Chord distance values, in the SIMD implementation of Smith-Waterman, are represe
 
 \subsection{File conversion}
 
-To convert collected files---which came in a variety of audio formats such as \textit{mp3}, \textit{aac}, and \textit{ogg}, and video formats such as \textit{mp4}---to \textit{wav} files required using the external library \textit{ffmpeg}. Ffmpeg contains a suite of \textit{codecs}, or computer audio wrappers, suitable for converting a wide range of file types to other file types. To feed data into Chordino requires the use of \textit{wav} files, so all input audio files were converted to \textit{wav} for the purpose of chord extraction. I wrote a wrapper to convert files and analyze their chordal content with Chordino in Python.
+To convert collected files---which come in a variety of audio formats such as \textit{mp3}, \textit{aac}, and \textit{ogg}, and video formats such as \textit{mp4}---to \textit{wav} files necessitated using the external library \textit{ffmpeg}. ffmpeg contains code to convert a wide range of audiovisual file types to other file types. To feed chord data into Chordino via a command line script requires the use of \textit{wav} files, so all input audio files were converted to \textit{wav} for the purpose of chord extraction. I wrote a wrapper to convert files and analyze their chordal content with Chordino in Python.
 
 \subsection{YouTube Extraction}
 
-The Beatles Dataset, consisting of over 180 songs of The Beatles' entire discography, as well as the Billboard 2014 dataset comprising over 200 top billboard charts in the United States were collected from YouTube\footnote{https://www.youtube.com/}. Using the Python extension \textit{youtube\_dl}\footnote{https://pypi.python.org/pypi/youtube\_dl}, I was able to bulk download videos from external user-created playlists corresponding to the data I wanted to extract. After downloading these files in \textit{mp4} format, I converted them to \textit{wav} files and extracted their chord progressions.
+This method of data collection concerns downloading from YouTube\footnote{https://www.youtube.com/} videos and playlists. Using the Python extension \textit{youtube\_dl}\footnote{https://pypi.python.org/pypi/youtube\_dl}, I bulk downloaded videos from external user-created playlists corresponding to the data I wanted to extract. I only used this technique to collect the Billboard 2014 Dataset, which consists of over 200 top contemporary billboard charts in the United States. After downloading these files in \textit{mp4} format, I converted them to \textit{wav} files and extracted their chord progressions using Chordino.
 
 \subsection{Rhapsody}
 
